@@ -76,7 +76,7 @@ try {
   await sleep(600);
   await control.eval(`document.getElementById('skip')?.click()`);
   await control.eval(`window.petlink.call('settings',{character:'dafeiyu',theme:'lavender',onboarded:true,heatmapPalette:'twilight'})`);
-  await sleep(400);
+  await sleep(1200);
 
   // Seed rich activity data
   const hourlySeed = [
@@ -107,8 +107,8 @@ try {
 
   const shotMap = {};
   const captureTab = async (tabId, name) => {
-    await control.eval(`document.querySelector('[data-tab="${tabId}"]')?.click()`);
-    await sleep(450);
+    await control.eval(`document.querySelector('[data-page="${tabId}"]')?.click()`);
+    await sleep(600);
     const file = path.join(shotsDir, `${name}.png`);
     await control.capture(file);
     shotMap[name] = pathToFileURL(file).href;

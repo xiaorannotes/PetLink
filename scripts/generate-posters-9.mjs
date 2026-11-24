@@ -9,9 +9,6 @@ const outDir = path.resolve(root, '../../outputs/posters');
 const docsDir = path.join(root, 'docs/posters');
 const appBinary = path.join(root, 'dist/m6-mac/PetLink-Mac/PetLink.app/Contents/MacOS/Electron');
 const dafeiyuFrames = pathToFileURL(path.join(root, 'characters/dafeiyu/frames/')).href;
-const xiaodadaIdle = pathToFileURL(path.join(root, 'characters/xiaodada/frames/idle/idle/frame_000.webp')).href;
-const xiaodadaDone = pathToFileURL(path.join(root, 'characters/xiaodada/frames/done/done/frame_000.webp')).href;
-const xiaodadaWorking = pathToFileURL(path.join(root, 'characters/xiaodada/frames/working/working/frame_000.webp')).href;
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 async function targets(port) { return fetch(`http://127.0.0.1:${port}/json/list`).then(r => r.json()); }
@@ -78,7 +75,7 @@ try {
 
   await sleep(600);
   await control.eval(`document.getElementById('skip')?.click()`);
-  await control.eval(`window.petlink.call('settings',{character:'xiaodada',theme:'lavender',onboarded:true,heatmapPalette:'twilight'})`);
+  await control.eval(`window.petlink.call('settings',{character:'dafeiyu',theme:'lavender',onboarded:true,heatmapPalette:'twilight'})`);
   await sleep(400);
 
   // Seed rich activity data
@@ -218,12 +215,11 @@ try {
             <div class="chip">🤖 9 大 AI Agent 一键联动</div>
             <div class="chip">🖱️ 像素级透明穿透不挡按钮</div>
             <div class="chip">🔒 本地 SQLite 零云端上传</div>
-            <div class="chip">🎨 肖大大 + 大肥鱼双角色</div>
+            <div class="chip">🎨 大肥鱼 106 段高清透明动画</div>
           </div>
         </div>
         <div class="right">
           <div class="shot-frame"><img src="${shotMap.connections}"></div>
-          <div class="pet-badge" style="right:148px;bottom:-18px;width:136px;height:136px;"><img src="${xiaodadaIdle}"></div>
           <div class="pet-badge"><img src="${dafeiyuFrames}action-working.png"></div>
         </div>
       `)
@@ -242,7 +238,7 @@ try {
         </div>
         <div class="right" style="flex:1.15">
           <div class="shot-frame"><img src="${shotMap.connections}"></div>
-          <div class="pet-badge"><img src="${xiaodadaWorking}"></div>
+          <div class="pet-badge"><img src="${dafeiyuFrames}action-agent-working.png"></div>
         </div>
       `)
     },
@@ -288,7 +284,7 @@ try {
         <div class="right">
           <div class="grid2">
             <div class="card" style="text-align:center;">
-              <img src="${xiaodadaWorking}" style="height:150px;object-fit:contain;margin-bottom:10px;">
+              <img src="${dafeiyuFrames}action-working.png" style="height:150px;object-fit:contain;margin-bottom:10px;">
               <div style="font-weight:800;color:#574191;">AI 工作中 / 专注敲码</div>
               <div style="font-size:12.5px;color:#7C7096;margin-top:4px;">敲敲 ~🐾 · 码力 +1 轻浮字</div>
             </div>
@@ -298,7 +294,7 @@ try {
               <div style="font-size:12.5px;color:#7C7096;margin-top:4px;">最高优先级瞬间切入提醒</div>
             </div>
             <div class="card" style="text-align:center;">
-              <img src="${xiaodadaDone}" style="height:150px;object-fit:contain;margin-bottom:10px;">
+              <img src="${dafeiyuFrames}action-done.png" style="height:150px;object-fit:contain;margin-bottom:10px;">
               <div style="font-weight:800;color:#574191;">任务完成庆祝</div>
               <div style="font-size:12.5px;color:#7C7096;margin-top:4px;">自动发放 +3 陪伴积分</div>
             </div>
@@ -367,11 +363,11 @@ try {
     },
     {
       file: '海报08-双角色与专属IP定制.png',
-      html: wrapPoster('08', '双角色与专属 IP 定制', `
+      html: wrapPoster('08', '百段动作与专属 IP 定制', `
         <div class="left" style="flex:0.95">
-          <div class="tag">🎨 原创肖大大 + 106 段动作大肥鱼</div>
-          <h1>双角色随心切<br>支持<span>专属 IP 定制</span></h1>
-          <p class="sub">内置开发者原创角色「肖大大」与 106 段透明 WebM 高清动画「大肥鱼」，支持导入本地角色包；也欢迎把你的原创 OC 或品牌吉祥物定制成专属桌宠！</p>
+          <div class="tag">🎨 大肥鱼 106 段透明 WebM 高清动画</div>
+          <h1>百段动作陪伴<br>支持<span>专属 IP 定制</span></h1>
+          <p class="sub">内置 106 段流畅透明动画的「大肥鱼」，支持一键导入本地自定义角色包；也欢迎把你的原创 OC 或品牌吉祥物定制成专属桌宠！</p>
           <div class="card" style="padding:14px 18px;background:#EFEAFB;border-color:#CFC0EE;">
             <div style="font-size:15px;font-weight:800;color:#574191;">💬 专属角色定制联系微信号：XiaoRanNotes</div>
             <div style="font-size:12.5px;color:#6B5E87;margin-top:4px;">软件内「宠物」页支持一键复制微信号，随时沟通定制方案</div>
@@ -444,6 +440,8 @@ try {
     await writeFile(htmlFile, p.html, 'utf8');
     await posterClient.send('Page.navigate', { url: pathToFileURL(htmlFile).href });
     await sleep(600);
+    const broken = await posterClient.eval(`Array.from(document.querySelectorAll('img')).filter(i => !i.complete || i.naturalWidth === 0).map(i => i.src)`);
+    if (broken.length > 0) throw new Error(`Broken images in ${p.file}: ${broken.join(', ')}`);
     const outFile = path.join(outDir, p.file);
     await posterClient.capture(outFile);
     await copyFile(outFile, path.join(docsDir, p.file));

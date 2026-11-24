@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<title>PetLink 网页桥接</title>
+<style>
+  body { width: 300px; margin: 0; padding: 16px; background: #FBF6EC; color: #5C4A3A; font: 13px/1.6 "PingFang SC","Microsoft YaHei",sans-serif; }
+  h1 { font-size: 16px; margin: 0 0 6px; }
+  p { font-size: 12px; color: #9A8874; margin: 0 0 12px; }
+  button { width: 100%; padding: 9px; border: 0; border-radius: 999px; background: linear-gradient(135deg,#F6A8B8,#F28CA0); color: #fff; font-weight: 700; cursor: pointer; margin-bottom: 8px; }
+  details { margin-top: 8px; font-size: 12px; }
+  input { width: 100%; box-sizing: border-box; margin: 4px 0 8px; padding: 6px 9px; border: 1px solid #F0E4CE; border-radius: 10px; background: #FFFDF8; color: #5C4A3A; }
+  #status { margin-top: 8px; font-size: 12.5px; color: #398E71; font-weight: 600; }
+</style>
+<body>
+  <h1>🐾 PetLink 网页版自动桥接</h1>
+  <p>自动同步 DeepSeek、豆包专业版、Muse、Grok 网页版的思考与完成状态（免填令牌，自动配对）。</p>
+  <button id="auto-pair">⚡ 一键自动配对并测试</button>
+  <div id="status"></div>
+  <details>
+    <summary>手动配置端口 / 令牌（可选）</summary>
+    <label>端口<input id="port" type="number" value="17321"></label>
+    <label>令牌<input id="token" type="password" placeholder="留空即可自动配对"></label>
+    <button id="save" style="background:#8EABC3">保存手动配置</button>
+  </details>
+  <script src="popup.js"></script>
+</body>
+</html>

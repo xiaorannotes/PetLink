@@ -1,0 +1,613 @@
+施工前基线（无隔离模式）
+✔ 映射 SessionStart (4.009444ms)
+✔ 映射 UserPromptSubmit (0.367632ms)
+✔ 映射 PreToolUse (0.148363ms)
+✔ 映射 PostToolUse (0.137787ms)
+✔ 映射 Notification (0.147251ms)
+✔ 映射 PermissionRequest (0.138738ms)
+✔ 映射 Stop (0.110656ms)
+✔ 映射 StopFailure (0.080941ms)
+✔ 映射 SessionEnd (0.127622ms)
+✔ Windows basename 与无效输入 (0.496565ms)
+✖ dry-run 不依赖 Hub、隐私白名单 (128.131426ms)
+✔ 离线、坏输入与 stdin 未关闭均静默且总时限不超过 800ms (558.415038ms)
+✖ 真实 Hub：四事件鉴权发送和聚合轨迹 (15.844377ms)
+✖ Hub 不响应时整体超时，仍静默 exit 0 (3.216475ms)
+✔ Codex notify 限制类型、身份、标题与隐私 (0.685679ms)
+✔ Codex hooks 全映射及未知事件仅续命 (0.462233ms)
+✖ Codex 子进程 dry-run 和无效输入静默退出 (109.124386ms)
+✖ Codex 真实 Hub：notify 与 hooks 共用发现、未知事件仅续命 (3.611347ms)
+✔ CLI 非法参数退出 2 并打印中文用法 (1.009294ms)
+✖ CLI Hub 不在线退出 1 (174.292969ms)
+✖ CLI send 与 state 经真实 Hub (2.81958ms)
+✔ Codex 保留原始字节 "\n" (81.827731ms)
+✔ Codex 保留原始字节 "\r\n" (14.529855ms)
+✔ Codex 拒绝用户 notify，缺失文件还原为不存在 (11.525549ms)
+✔ Codex 无末尾换行和 BOM 原样停用 (5.582083ms)
+✔ Codex 无末尾换行和 BOM 原样停用 (5.312238ms)
+✔ Codex 无末尾换行和 BOM 原样停用 (8.445989ms)
+✔ Codex 不把注释中的标记视为自己的 notify (2.410425ms)
+✔ Codex 保守拒绝多行顶层值，section 内用户 notify 不变 (47.157035ms)
+✔ 夹具：保留其他 hooks 与杂字段，幂等启用，停用后逐字节恢复 (23.194061ms)
+✔ 损坏 JSON 拒绝并保留文件与逐字节备份 (12.359319ms)
+✔ 最小配置还原：不存在 (62.40084ms)
+✔ 最小配置还原：空文件 (8.406549ms)
+✔ 用户后续修改保护、混合 hook 精确摘除、旧路径更新 (26.125949ms)
+✔ 未启用时空 hooks 结构不写入、不改变字节 (62.655583ms)
+✖ 真实 HTTP：回环、健康检查、鉴权和发现文件 (2.284376ms)
+✖ 真实 HTTP：双会话优先级、完成窗口与即时接管 (2.036034ms)
+✖ 真实 HTTP：可注入时间验证陈旧与心跳 (1.50053ms)
+✖ 拒绝事件、JSON、大小限制与日志脱敏 (1.364537ms)
+✔ 会话去抖、心跳不改标题与完成窗口、环形日志清空 (1.257807ms)
+✖ 端口占用顺延与令牌重用、停止清理发现文件 (0.520961ms)
+✔ 无效令牌文件明确拒绝启动 (2.839409ms)
+✔ 平台数据目录规则 (0.179109ms)
+✔ 陈旧降级后心跳维持空闲，新的工作事件恢复工作 (0.511347ms)
+✔ 同名不同来源与心跳保留完成计时 (0.266219ms)
+✔ 通知跃迁过滤、同会话跨状态去重与取消订阅 (1.094522ms)
+✔ 安静时段仍记录跃迁，所有动作均抑制 (0.727692ms)
+✖ Webhook 捕获体 kind 映射、自定义头与失败重试 (0.651016ms)
+✔ 注入传输验证重试与统一事件白名单 (0.771357ms)
+✔ 合法状态：idle (0.242454ms)
+✔ 合法状态：working (0.05997ms)
+✔ 合法状态：waiting (0.038027ms)
+✔ 合法状态：done (0.034963ms)
+✔ 合法状态：error (0.032669ms)
+✔ 合法状态：offline (0.048984ms)
+✔ 合法来源：claude-code (0.092569ms)
+✔ 合法来源：codex (0.043986ms)
+✔ 合法来源：cursor (0.035313ms)
+✔ 合法来源：generic (0.031707ms)
+✔ 合法来源：muse (0.037366ms)
+✔ 拒绝字段 v：undefined (0.08015ms)
+✔ 拒绝字段 v：2 (0.036415ms)
+✔ 拒绝字段 v：1 (0.044427ms)
+✔ 拒绝字段 source：undefined (0.037316ms)
+✔ 拒绝字段 source：other (0.035683ms)
+✔ 拒绝字段 source：1 (0.030977ms)
+✔ 拒绝字段 session：undefined (0.038237ms)
+✔ 拒绝字段 session： (0.035684ms)
+✔ 拒绝字段 session：  (0.059559ms)
+✔ 拒绝字段 session：1 (0.041592ms)
+✔ 拒绝字段 session：a/b (0.034702ms)
+✔ 拒绝字段 state：undefined (0.103275ms)
+✔ 拒绝字段 state：unknown (0.036424ms)
+✔ 拒绝字段 state：1 (0.034522ms)
+✔ 拒绝字段 ts：undefined (0.034412ms)
+✔ 拒绝字段 ts：-1 (0.03296ms)
+✔ 拒绝字段 ts：1.5 (0.034902ms)
+✔ 拒绝字段 ts：Infinity (0.052509ms)
+✔ 拒绝字段 ts：1000 (0.055404ms)
+✔ 拒绝字段 project：/tmp/a (0.043325ms)
+✔ 拒绝字段 project：a/b (0.031778ms)
+✔ 拒绝字段 project：a\b (0.032479ms)
+✔ 拒绝字段 project：. (0.032949ms)
+✔ 拒绝字段 project：.. (0.03349ms)
+✔ 拒绝字段 project： (0.034071ms)
+✔ 拒绝字段 project：1 (0.036084ms)
+✔ 拒绝字段 project：C:foo (0.033029ms)
+✔ 拒绝字段 title：字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字 (0.048543ms)
+✔ 拒绝字段 title：1 (0.032248ms)
+✔ 拒绝字段 title：换
+行 (1.221412ms)
+✔ 拒绝字段 beat：1 (0.075383ms)
+✔ 拒绝字段 beat：true (0.041472ms)
+✔ 拒绝字段 beat：null (0.035243ms)
+✔ 拒绝敏感标题：TOKEN=abc (0.205549ms)
+✔ 拒绝敏感标题：apiKey (0.051157ms)
+✔ 拒绝敏感标题：Password (0.034121ms)
+✔ 拒绝敏感标题：我的密钥 (0.063585ms)
+✔ 对象类型与额外字段 (0.157766ms)
+✔ 可选字段与 Unicode 长度 (0.150286ms)
+✔ 优先级 waiting > error (0.157756ms)
+✔ 优先级 waiting > done (0.057847ms)
+✔ 优先级 waiting > working (0.066269ms)
+✔ 优先级 waiting > idle (0.047942ms)
+✔ 优先级 error > done (0.03347ms)
+✔ 优先级 error > working (0.032559ms)
+✔ 优先级 error > idle (0.029564ms)
+✔ 优先级 done > working (0.032048ms)
+✔ 优先级 done > idle (0.037637ms)
+✔ 优先级 working > idle (0.057706ms)
+✔ 完成窗口到期回落且不修改输入 (0.118147ms)
+✔ 空表与离线不参与 (0.123655ms)
+✔ 陈旧边界、等待不降级 (0.104316ms)
+✔ 共享发现严格验证端口与令牌，并且只返回回环所需信息 (12.111407ms)
+ℹ tests 113
+ℹ suites 0
+ℹ pass 100
+ℹ fail 13
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1504.446899
+
+✖ failing tests:
+
+test at ../../../../tmp/petlink-m4-baseline/packages/adapters/claude-code.test.mjs:28:1
+✖ dry-run 不依赖 Hub、隐私白名单 (128.131426ms)
+  SyntaxError: Unexpected end of JSON input
+      at JSON.parse (<anonymous>)
+      at TestContext.<anonymous> (file:///tmp/petlink-m4-baseline/packages/adapters/claude-code.test.mjs:30:84)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at ../../../../tmp/petlink-m4-baseline/packages/adapters/claude-code.test.mjs:37:1
+✖ 真实 Hub：四事件鉴权发送和聚合轨迹 (15.844377ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at ../../../../tmp/petlink-m4-baseline/packages/adapters/claude-code.test.mjs:49:1
+✖ Hub 不响应时整体超时，仍静默 exit 0 (3.216475ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at ../../../../tmp/petlink-m4-baseline/packages/adapters/codex.test.mjs:20:1
+✖ Codex 子进程 dry-run 和无效输入静默退出 (109.124386ms)
+  AssertionError [ERR_ASSERTION]: ifError got unwanted exception: spawnSync /usr/bin/node EPERM
+      at TestContext.<anonymous> (file:///tmp/petlink-m4-baseline/packages/adapters/codex.test.mjs:24:10)
+      at Object.spawnSync (node:internal/child_process:1191:20)
+      at spawnSync (node:child_process:929:24)
+      at TestContext.<anonymous> (file:///tmp/petlink-m4-baseline/packages/adapters/codex.test.mjs:23:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [Error],
+    expected: null,
+    operator: 'ifError',
+    diff: 'simple'
+  }
+
+test at ../../../../tmp/petlink-m4-baseline/packages/adapters/codex.test.mjs:27:1
+✖ Codex 真实 Hub：notify 与 hooks 共用发现、未知事件仅续命 (3.611347ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at ../../../../tmp/petlink-m4-baseline/packages/cli/cli.test.mjs:22:1
+✖ CLI Hub 不在线退出 1 (174.292969ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /请先启动/u. Input:
+  
+  ''
+  
+      at TestContext.<anonymous> (file:///tmp/petlink-m4-baseline/packages/cli/cli.test.mjs:24:91)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: /请先启动/u,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at ../../../../tmp/petlink-m4-baseline/packages/cli/cli.test.mjs:26:1
+✖ CLI send 与 state 经真实 Hub (2.81958ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at ../../../../tmp/petlink-m4-baseline/packages/hub/hub.test.mjs:18:1
+✖ 真实 HTTP：回环、健康检查、鉴权和发现文件 (2.284376ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at ../../../../tmp/petlink-m4-baseline/packages/hub/hub.test.mjs:28:1
+✖ 真实 HTTP：双会话优先级、完成窗口与即时接管 (2.036034ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at ../../../../tmp/petlink-m4-baseline/packages/hub/hub.test.mjs:39:1
+✖ 真实 HTTP：可注入时间验证陈旧与心跳 (1.50053ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at ../../../../tmp/petlink-m4-baseline/packages/hub/hub.test.mjs:48:1
+✖ 拒绝事件、JSON、大小限制与日志脱敏 (1.364537ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at ../../../../tmp/petlink-m4-baseline/packages/hub/hub.test.mjs:68:1
+✖ 端口占用顺延与令牌重用、停止清理发现文件 (0.520961ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at ../../../../tmp/petlink-m4-baseline/packages/notifier/notifier.test.mjs:21:1
+✖ Webhook 捕获体 kind 映射、自定义头与失败重试 (0.651016ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+M4 当前（无隔离模式）
+✔ 内置包所有状态映射与占位标记完整 (4.225949ms)
+✔ 缺少字段反馈具体缺项 (0.974201ms)
+✔ 拒绝路径越界、精灵图寻址及空帧 (2.410246ms)
+✔ 拒绝无效锚点帧率及台词数量 (0.467001ms)
+✔ 循环按 fps 回绕，单次停在末帧 (0.27999ms)
+✔ 睡眠仅覆盖 idle，互动不修改底层状态 (0.180601ms)
+✔ 映射 SessionStart (0.692048ms)
+✔ 映射 UserPromptSubmit (0.223084ms)
+✔ 映射 PreToolUse (0.177016ms)
+✔ 映射 PostToolUse (0.255583ms)
+✔ 映射 Notification (3.455073ms)
+✔ 映射 PermissionRequest (0.205969ms)
+✔ 映射 Stop (0.089464ms)
+✔ 映射 StopFailure (0.095302ms)
+✔ 映射 SessionEnd (0.072208ms)
+✔ Windows basename 与无效输入 (0.36648ms)
+✖ dry-run 不依赖 Hub、隐私白名单 (87.49379ms)
+✔ 离线、坏输入与 stdin 未关闭均静默且总时限不超过 800ms (349.033457ms)
+✖ 真实 Hub：四事件鉴权发送和聚合轨迹 (15.123926ms)
+✖ Hub 不响应时整体超时，仍静默 exit 0 (3.335984ms)
+✔ Codex notify 限制类型、身份、标题与隐私 (0.749224ms)
+✔ Codex hooks 全映射及未知事件仅续命 (0.475433ms)
+✖ Codex 子进程 dry-run 和无效输入静默退出 (88.171977ms)
+✖ Codex 真实 Hub：notify 与 hooks 共用发现、未知事件仅续命 (6.744998ms)
+✔ CLI 非法参数退出 2 并打印中文用法 (1.079539ms)
+✖ CLI Hub 不在线退出 1 (87.682803ms)
+✖ CLI send 与 state 经真实 Hub (2.415142ms)
+✔ Codex 保留原始字节 "\n" (13.711537ms)
+✔ Codex 保留原始字节 "\r\n" (7.417957ms)
+✔ Codex 拒绝用户 notify，缺失文件还原为不存在 (6.233991ms)
+✔ Codex 无末尾换行和 BOM 原样停用 (4.014021ms)
+✔ Codex 无末尾换行和 BOM 原样停用 (3.851918ms)
+✔ Codex 无末尾换行和 BOM 原样停用 (3.449975ms)
+✔ Codex 不把注释中的标记视为自己的 notify (2.367481ms)
+✔ Codex 保守拒绝多行顶层值，section 内用户 notify 不变 (9.037506ms)
+✔ 夹具：保留其他 hooks 与杂字段，幂等启用，停用后逐字节恢复 (20.101492ms)
+✔ 损坏 JSON 拒绝并保留文件与逐字节备份 (3.490816ms)
+✔ 最小配置还原：不存在 (4.516395ms)
+✔ 最小配置还原：空文件 (4.395893ms)
+✔ 用户后续修改保护、混合 hook 精确摘除、旧路径更新 (7.417195ms)
+✔ 未启用时空 hooks 结构不写入、不改变字节 (9.51287ms)
+✖ 真实 HTTP：回环、健康检查、鉴权和发现文件 (1.591597ms)
+✖ 真实 HTTP：双会话优先级、完成窗口与即时接管 (1.339099ms)
+✖ 真实 HTTP：可注入时间验证陈旧与心跳 (1.14716ms)
+✖ 拒绝事件、JSON、大小限制与日志脱敏 (1.390065ms)
+✔ 会话去抖、心跳不改标题与完成窗口、环形日志清空 (1.168583ms)
+✖ 端口占用顺延与令牌重用、停止清理发现文件 (0.505237ms)
+✔ 无效令牌文件明确拒绝启动 (1.374812ms)
+✔ 平台数据目录规则 (0.218247ms)
+✔ 陈旧降级后心跳维持空闲，新的工作事件恢复工作 (0.444948ms)
+✔ 同名不同来源与心跳保留完成计时 (0.320971ms)
+✔ 通知跃迁过滤、同会话跨状态去重与取消订阅 (1.092469ms)
+✔ 安静时段仍记录跃迁，所有动作均抑制 (0.539349ms)
+✖ Webhook 捕获体 kind 映射、自定义头与失败重试 (0.592669ms)
+✔ 注入传输验证重试与统一事件白名单 (0.810025ms)
+✔ 合法状态：idle (0.248132ms)
+✔ 合法状态：working (0.067141ms)
+✔ 合法状态：waiting (0.047391ms)
+✔ 合法状态：done (0.048713ms)
+✔ 合法状态：error (0.049064ms)
+✔ 合法状态：offline (0.047912ms)
+✔ 合法来源：claude-code (0.087571ms)
+✔ 合法来源：codex (0.042424ms)
+✔ 合法来源：cursor (0.05372ms)
+✔ 合法来源：generic (0.04711ms)
+✔ 合法来源：muse (0.041612ms)
+✔ 拒绝字段 v：undefined (0.08025ms)
+✔ 拒绝字段 v：2 (0.054331ms)
+✔ 拒绝字段 v：1 (0.059009ms)
+✔ 拒绝字段 source：undefined (0.039559ms)
+✔ 拒绝字段 source：other (0.042324ms)
+✔ 拒绝字段 source：1 (0.19305ms)
+✔ 拒绝字段 session：undefined (0.076495ms)
+✔ 拒绝字段 session： (0.03991ms)
+✔ 拒绝字段 session：  (0.039299ms)
+✔ 拒绝字段 session：1 (0.055894ms)
+✔ 拒绝字段 session：a/b (0.04669ms)
+✔ 拒绝字段 state：undefined (0.037707ms)
+✔ 拒绝字段 state：unknown (0.045639ms)
+✔ 拒绝字段 state：1 (0.038828ms)
+✔ 拒绝字段 ts：undefined (0.039189ms)
+✔ 拒绝字段 ts：-1 (0.038278ms)
+✔ 拒绝字段 ts：1.5 (0.062043ms)
+✔ 拒绝字段 ts：Infinity (0.041943ms)
+✔ 拒绝字段 ts：1000 (1.984056ms)
+✔ 拒绝字段 project：/tmp/a (0.157155ms)
+✔ 拒绝字段 project：a/b (0.063565ms)
+✔ 拒绝字段 project：a\b (0.035953ms)
+✔ 拒绝字段 project：. (0.032399ms)
+✔ 拒绝字段 project：.. (0.031146ms)
+✔ 拒绝字段 project： (0.030987ms)
+✔ 拒绝字段 project：1 (0.068072ms)
+✔ 拒绝字段 project：C:foo (0.103765ms)
+✔ 拒绝字段 title：字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字 (0.061602ms)
+✔ 拒绝字段 title：1 (0.035653ms)
+✔ 拒绝字段 title：换
+行 (0.047681ms)
+✔ 拒绝字段 beat：1 (0.033921ms)
+✔ 拒绝字段 beat：true (0.03295ms)
+✔ 拒绝字段 beat：null (0.039589ms)
+✔ 拒绝敏感标题：TOKEN=abc (0.26034ms)
+✔ 拒绝敏感标题：apiKey (0.057436ms)
+✔ 拒绝敏感标题：Password (0.034342ms)
+✔ 拒绝敏感标题：我的密钥 (0.035824ms)
+✔ 对象类型与额外字段 (0.183225ms)
+✔ 可选字段与 Unicode 长度 (0.105569ms)
+✔ 优先级 waiting > error (0.147872ms)
+✔ 优先级 waiting > done (0.083886ms)
+✔ 优先级 waiting > working (0.042764ms)
+✔ 优先级 waiting > idle (0.037066ms)
+✔ 优先级 error > done (0.03333ms)
+✔ 优先级 error > working (0.031397ms)
+✔ 优先级 error > idle (0.031407ms)
+✔ 优先级 done > working (0.030516ms)
+✔ 优先级 done > idle (0.033971ms)
+✔ 优先级 working > idle (0.051748ms)
+✔ 完成窗口到期回落且不修改输入 (0.180782ms)
+✔ 空表与离线不参与 (0.139589ms)
+✔ 陈旧边界、等待不降级 (0.079359ms)
+✔ 共享发现严格验证端口与令牌，并且只返回回环所需信息 (4.38034ms)
+ℹ tests 119
+ℹ suites 0
+ℹ pass 106
+ℹ fail 13
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 842.772162
+
+✖ failing tests:
+
+test at packages/adapters/claude-code.test.mjs:28:1
+✖ dry-run 不依赖 Hub、隐私白名单 (87.49379ms)
+  SyntaxError: Unexpected end of JSON input
+      at JSON.parse (<anonymous>)
+      at TestContext.<anonymous> (file:///home/hatch/workspace/petlink/packages/adapters/claude-code.test.mjs:30:84)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at packages/adapters/claude-code.test.mjs:37:1
+✖ 真实 Hub：四事件鉴权发送和聚合轨迹 (15.123926ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at packages/adapters/claude-code.test.mjs:49:1
+✖ Hub 不响应时整体超时，仍静默 exit 0 (3.335984ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at packages/adapters/codex.test.mjs:20:1
+✖ Codex 子进程 dry-run 和无效输入静默退出 (88.171977ms)
+  AssertionError [ERR_ASSERTION]: ifError got unwanted exception: spawnSync /usr/bin/node EPERM
+      at TestContext.<anonymous> (file:///home/hatch/workspace/petlink/packages/adapters/codex.test.mjs:24:10)
+      at Object.spawnSync (node:internal/child_process:1191:20)
+      at spawnSync (node:child_process:929:24)
+      at TestContext.<anonymous> (file:///home/hatch/workspace/petlink/packages/adapters/codex.test.mjs:23:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [Error],
+    expected: null,
+    operator: 'ifError',
+    diff: 'simple'
+  }
+
+test at packages/adapters/codex.test.mjs:27:1
+✖ Codex 真实 Hub：notify 与 hooks 共用发现、未知事件仅续命 (6.744998ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at packages/cli/cli.test.mjs:22:1
+✖ CLI Hub 不在线退出 1 (87.682803ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /请先启动/u. Input:
+  
+  ''
+  
+      at TestContext.<anonymous> (file:///home/hatch/workspace/petlink/packages/cli/cli.test.mjs:24:91)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: /请先启动/u,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at packages/cli/cli.test.mjs:26:1
+✖ CLI send 与 state 经真实 Hub (2.415142ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at packages/hub/hub.test.mjs:18:1
+✖ 真实 HTTP：回环、健康检查、鉴权和发现文件 (1.591597ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at packages/hub/hub.test.mjs:28:1
+✖ 真实 HTTP：双会话优先级、完成窗口与即时接管 (1.339099ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at packages/hub/hub.test.mjs:39:1
+✖ 真实 HTTP：可注入时间验证陈旧与心跳 (1.14716ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at packages/hub/hub.test.mjs:48:1
+✖ 拒绝事件、JSON、大小限制与日志脱敏 (1.390065ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at packages/hub/hub.test.mjs:68:1
+✖ 端口占用顺延与令牌重用、停止清理发现文件 (0.505237ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at packages/notifier/notifier.test.mjs:21:1
+✖ Webhook 捕获体 kind 映射、自定义头与失败重试 (0.592669ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }

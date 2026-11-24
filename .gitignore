@@ -1,0 +1,7 @@
+node_modules/
+dist/
+*.log
+.DS_Store
+
+# Local Windows delivery archives (source and character assets are committed).
+/PetLink-*-Win-诊断版.zip

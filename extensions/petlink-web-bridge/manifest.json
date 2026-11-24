@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "PetLink 网页版 AI 状态桥接",
+  "version": "1.0.0",
+  "description": "将 DeepSeek、豆包专业版、Muse、Grok 网页版的思考与完成状态实时同步给本机 PetLink 桌宠（零内容读取，仅发状态）。",
+  "permissions": ["storage"],
+  "host_permissions": ["http://127.0.0.1/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "PetLink 网页桥接设置"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chat.deepseek.com/*",
+        "https://www.doubao.com/*",
+        "https://grok.com/*",
+        "https://x.com/i/grok*",
+        "https://*.muse.ai/*",
+        "https://muse.*/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

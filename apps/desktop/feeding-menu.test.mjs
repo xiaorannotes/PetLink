@@ -1,0 +1,3 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {feedingMenu} from './feeding-menu.mjs';
+test('empty backpack always has an explanation and shop entry',()=>{let opened=false;const menu=feedingMenu({catalog:[],backpack:{}},{feed:()=>{},shop:()=>opened=true});assert.equal(menu[0].enabled,false);menu.at(-1).click();assert.equal(opened,true);});
+test('owned food shows real stock and feeds the selected item',()=>{let selected;const menu=feedingMenu({catalog:[{id:'rice',name:'米饭'},{id:'milk',name:'牛奶'}],backpack:{rice:2,milk:0}},{feed:id=>selected=id,shop:()=>{}});assert.equal(menu[0].label,'米饭 ×2');menu[0].click();assert.equal(selected,'rice');assert.equal(menu.length,3);});

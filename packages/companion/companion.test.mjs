@@ -1,0 +1,18 @@
+import {tmpdir} from 'node:os';import path from 'node:path';
+import {test} from 'node:test';import assert from 'node:assert/strict';import {mkdtemp,readFile,rm} from 'node:fs/promises';import {createCompanion,FOODS,foodClip,RATES} from './index.mjs';
+async function setup(t,extra={}){const dataDir=await mkdtemp(path.join(tmpdir(),'companion-'));t.after(()=>rm(dataDir,{recursive:true,force:true}));return {dataDir,c:await createCompanion({dataDir,...extra})};}
+test('daily +20h interval: blocked attempt does not occupy next day',async t=>{let now=new Date(2026,0,1,23).getTime();const {c}=await setup(t,{now:()=>now});await c.companionship();await c.companionship();assert.equal(c.snapshot().balance,2);now+=2*3600000;assert.equal((await c.companionship()).ok,false);now+=18*3600000;await c.companionship();assert.equal(c.snapshot().balance,4);await c.companionship();assert.equal(c.snapshot().balance,4);});
+test('insufficient balance, serialized idempotency, settlement before failed playback, persistence',async t=>{let now=0;let checked=false;const {dataDir,c}=await setup(t,{now:()=>now,playClip:async()=>{const s=JSON.parse(await readFile(dataDir+'/companion.json'));assert.equal(s.backpack.rice,0);checked=true;throw Error('play failed');}});await assert.rejects(c.buy('rice','no'),/积分不足/);await c.companionship();await Promise.all([c.buy('rice','buy'),c.buy('rice','buy')]);assert.equal(c.snapshot().balance,0);assert.equal(c.snapshot().backpack.rice,1);await c.feed('rice','feed');assert.ok(checked);await c.feed('rice','feed');assert.equal(c.snapshot().hunger,100);await c.reward({source:'codex',session:'a',ts:1});await c.reward({source:'codex',session:'a',ts:1});assert.equal(c.snapshot().balance,3);await c.buy('rice','buy2');await assert.rejects(c.feed('rice','full'),/已经吃饱啦/);assert.equal(c.snapshot().backpack.rice,1);now+=3600000;assert.equal(c.snapshot().hunger,95);const restored=await createCompanion({dataDir,now:()=>now});assert.equal(restored.snapshot().balance,1);assert.equal(c.snapshot().ledger.filter(e=>e.kind==='feeding').length,1);});
+test('all 21 exact mappings and integer catalog',()=>{assert.equal(FOODS.length,21);const groups={bowl:['rice','fried-rice','chicken-bento','deluxe-bento'],noodles:['noodles','lanzhou-noodles'],handheld:['steamed-bun','toast','sandwich','chive-pie','chive-dumplings','biscuit','crisps','chocolate'],spoon:['pudding','cheesecake','fruit'],icecream:['ice-cream'],drink:['milk','juice'],candy:['milk-candy']};for(const [clip,ids] of Object.entries(groups))for(const id of ids)assert.equal(foodClip(id),'eat-'+clip);assert.equal(foodClip('unknown'),'eat-bowl');assert.equal(RATES.initialHunger,80);});
+
+test('Hub accepted done events reward once, excluding heartbeat, merged and synthetic events',async t=>{
+ const {SessionStore}=await import('../hub/index.mjs');let clock=100000;
+ const {c,dataDir}=await setup(t,{now:()=>clock});const store=new SessionStore({now:()=>clock});
+ const pending=[];store.events.on('acceptedEvent',(event,{synthetic})=>{if(event.state==='done'&&!synthetic)pending.push(c.reward(event));});
+ const event={v:1,source:'generic',session:'actual-session',state:'done',ts:clock};
+ store.accept(event);store.accept(event);store.accept({...event,beat:true});
+ store.accept({...event,session:'preview'},{synthetic:true});
+ clock+=5000;store.accept(event); // Retransmission outside Hub debounce remains ledger-idempotent.
+ await Promise.all(pending);assert.equal(c.snapshot().balance,3);assert.equal(c.snapshot().todayDone,1);
+ const restored=await createCompanion({dataDir,now:()=>clock});await restored.reward(event);assert.equal(restored.snapshot().balance,3);
+});

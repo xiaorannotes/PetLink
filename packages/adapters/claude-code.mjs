@@ -1,0 +1,32 @@
+// 需要 Node >=20；无 Node 时由安装器指定工具自带的兼容 Node 运行时。
+import http from 'node:http';
+import path from 'node:path';
+import { pathToFileURL } from 'node:url';
+import { discoverHub } from '../shared/index.mjs';
+import { validateEvent } from '../protocol/index.mjs';
+export const HOOK_STATES = Object.freeze({ SessionStart: 'idle', UserPromptSubmit: 'working', PreToolUse: 'working', PostToolUse: 'working', Notification: 'waiting', PermissionRequest: 'waiting', Stop: 'done', StopFailure: 'error', SessionEnd: 'offline' });
+export function translateHook(input, now = Date.now()) {
+  const state = HOOK_STATES[input?.hook_event_name];
+  if (!state) return null;
+  const event = { v: 1, source: 'claude-code', session: input.session_id, state, ts: now };
+  if (typeof input.cwd === 'string') event.project = path.win32.basename(input.cwd.replace(/\/+$/u, ''));
+
+  return validateEvent(event).ok ? event : null;
+}
+async function main() {
+  // 覆盖 stdin、文件发现与网络的总预算；任何失败均静默结束。
+  const deadline = setTimeout(() => process.exit(0), 450);
+  try {
+    const chunks = []; let size = 0;
+    for await (const chunk of process.stdin) { size += chunk.length; if (size > 1048576) return; chunks.push(chunk); }
+    const event = translateHook(JSON.parse(Buffer.concat(chunks).toString('utf8')));
+    if (!event) return;
+    if (process.argv.includes('--dry-run')) { process.stdout.write(JSON.stringify(event) + '\n'); return; }
+    const { port, token } = await discoverHub();
+    await new Promise(resolve => {
+      const req = http.request({ hostname: '127.0.0.1', port, path: '/v1/event', method: 'POST', headers: { 'x-petlink-token': token, 'content-type': 'application/json' } }, res => { res.resume(); res.on('end', resolve); res.on('error', resolve); });
+      req.on('error', resolve); req.end(JSON.stringify(event));
+    });
+  } catch {} finally { clearTimeout(deadline); }
+}
+if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) await main();

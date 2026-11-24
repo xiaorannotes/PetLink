@@ -1,0 +1,1 @@
+export function lookTransform({x=0,y=0,enabled=true,state='idle',blocked=false}={}){if(!enabled||blocked||!['idle','waiting'].includes(state))return {x:0,y:0,angle:0};const clamp=v=>Math.max(-1,Math.min(1,v/300));return {x:clamp(x)*5,y:clamp(y)*5,angle:clamp(x)*2};}

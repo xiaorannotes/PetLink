@@ -1,0 +1,1 @@
+{"name":"@petlink/cli","version":"0.1.0","type":"module","bin":{"petlink":"./petlink.mjs"},"engines":{"node":">=20"}}

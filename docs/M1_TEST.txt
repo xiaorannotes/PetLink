@@ -1,0 +1,493 @@
+TAP version 13
+# Subtest: 真实 HTTP：回环、健康检查、鉴权和发现文件
+not ok 1 - 真实 HTTP：回环、健康检查、鉴权和发现文件
+  ---
+  duration_ms: 23.771739
+  type: 'test'
+  location: '/home/hatch/workspace/petlink/packages/hub/hub.test.mjs:18:1'
+  failureType: 'testCodeFailure'
+  error: 'listen EPERM: operation not permitted 127.0.0.1'
+  code: 'EPERM'
+  stack: |-
+    Server.setupListenHandle [as _listen2] (node:net:2368:21)
+    listenInCluster (node:net:2499:12)
+    node:net:2728:7
+    process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+  ...
+# Subtest: 真实 HTTP：双会话优先级、完成窗口与即时接管
+not ok 2 - 真实 HTTP：双会话优先级、完成窗口与即时接管
+  ---
+  duration_ms: 5.769742
+  type: 'test'
+  location: '/home/hatch/workspace/petlink/packages/hub/hub.test.mjs:28:1'
+  failureType: 'testCodeFailure'
+  error: 'listen EPERM: operation not permitted 127.0.0.1'
+  code: 'EPERM'
+  stack: |-
+    Server.setupListenHandle [as _listen2] (node:net:2368:21)
+    listenInCluster (node:net:2499:12)
+    node:net:2728:7
+    process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+  ...
+# Subtest: 真实 HTTP：可注入时间验证陈旧与心跳
+not ok 3 - 真实 HTTP：可注入时间验证陈旧与心跳
+  ---
+  duration_ms: 3.286575
+  type: 'test'
+  location: '/home/hatch/workspace/petlink/packages/hub/hub.test.mjs:39:1'
+  failureType: 'testCodeFailure'
+  error: 'listen EPERM: operation not permitted 127.0.0.1'
+  code: 'EPERM'
+  stack: |-
+    Server.setupListenHandle [as _listen2] (node:net:2368:21)
+    listenInCluster (node:net:2499:12)
+    node:net:2728:7
+    process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+  ...
+# Subtest: 拒绝事件、JSON、大小限制与日志脱敏
+not ok 4 - 拒绝事件、JSON、大小限制与日志脱敏
+  ---
+  duration_ms: 2.506714
+  type: 'test'
+  location: '/home/hatch/workspace/petlink/packages/hub/hub.test.mjs:48:1'
+  failureType: 'testCodeFailure'
+  error: 'listen EPERM: operation not permitted 127.0.0.1'
+  code: 'EPERM'
+  stack: |-
+    Server.setupListenHandle [as _listen2] (node:net:2368:21)
+    listenInCluster (node:net:2499:12)
+    node:net:2728:7
+    process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+  ...
+# Subtest: 会话去抖、心跳不改标题与完成窗口、环形日志清空
+ok 5 - 会话去抖、心跳不改标题与完成窗口、环形日志清空
+  ---
+  duration_ms: 1.959152
+  type: 'test'
+  ...
+# Subtest: 端口占用顺延与令牌重用、停止清理发现文件
+not ok 6 - 端口占用顺延与令牌重用、停止清理发现文件
+  ---
+  duration_ms: 0.651088
+  type: 'test'
+  location: '/home/hatch/workspace/petlink/packages/hub/hub.test.mjs:68:1'
+  failureType: 'testCodeFailure'
+  error: 'listen EPERM: operation not permitted 127.0.0.1'
+  code: 'EPERM'
+  stack: |-
+    Server.setupListenHandle [as _listen2] (node:net:2368:21)
+    listenInCluster (node:net:2499:12)
+    node:net:2728:7
+    process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+  ...
+# Subtest: 无效令牌文件明确拒绝启动
+ok 7 - 无效令牌文件明确拒绝启动
+  ---
+  duration_ms: 3.966565
+  type: 'test'
+  ...
+# Subtest: 平台数据目录规则
+ok 8 - 平台数据目录规则
+  ---
+  duration_ms: 0.351618
+  type: 'test'
+  ...
+# Subtest: 陈旧降级后心跳维持空闲，新的工作事件恢复工作
+ok 9 - 陈旧降级后心跳维持空闲，新的工作事件恢复工作
+  ---
+  duration_ms: 0.578719
+  type: 'test'
+  ...
+# Subtest: 同名不同来源与心跳保留完成计时
+ok 10 - 同名不同来源与心跳保留完成计时
+  ---
+  duration_ms: 0.549235
+  type: 'test'
+  ...
+# Subtest: 合法状态：idle
+ok 11 - 合法状态：idle
+  ---
+  duration_ms: 0.217747
+  type: 'test'
+  ...
+# Subtest: 合法状态：working
+ok 12 - 合法状态：working
+  ---
+  duration_ms: 0.063445
+  type: 'test'
+  ...
+# Subtest: 合法状态：waiting
+ok 13 - 合法状态：waiting
+  ---
+  duration_ms: 0.105378
+  type: 'test'
+  ...
+# Subtest: 合法状态：done
+ok 14 - 合法状态：done
+  ---
+  duration_ms: 0.062814
+  type: 'test'
+  ...
+# Subtest: 合法状态：error
+ok 15 - 合法状态：error
+  ---
+  duration_ms: 0.038858
+  type: 'test'
+  ...
+# Subtest: 合法状态：offline
+ok 16 - 合法状态：offline
+  ---
+  duration_ms: 0.037015
+  type: 'test'
+  ...
+# Subtest: 合法来源：claude-code
+ok 17 - 合法来源：claude-code
+  ---
+  duration_ms: 0.161533
+  type: 'test'
+  ...
+# Subtest: 合法来源：codex
+ok 18 - 合法来源：codex
+  ---
+  duration_ms: 0.041642
+  type: 'test'
+  ...
+# Subtest: 合法来源：cursor
+ok 19 - 合法来源：cursor
+  ---
+  duration_ms: 0.080271
+  type: 'test'
+  ...
+# Subtest: 合法来源：generic
+ok 20 - 合法来源：generic
+  ---
+  duration_ms: 0.144057
+  type: 'test'
+  ...
+# Subtest: 合法来源：muse
+ok 21 - 合法来源：muse
+  ---
+  duration_ms: 0.061832
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 v：undefined
+ok 22 - 拒绝字段 v：undefined
+  ---
+  duration_ms: 0.078979
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 v：2
+ok 23 - 拒绝字段 v：2
+  ---
+  duration_ms: 0.049905
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 v：1
+ok 24 - 拒绝字段 v：1
+  ---
+  duration_ms: 0.037476
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 source：undefined
+ok 25 - 拒绝字段 source：undefined
+  ---
+  duration_ms: 0.029865
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 source：other
+ok 26 - 拒绝字段 source：other
+  ---
+  duration_ms: 0.028913
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 source：1
+ok 27 - 拒绝字段 source：1
+  ---
+  duration_ms: 0.029574
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 session：undefined
+ok 28 - 拒绝字段 session：undefined
+  ---
+  duration_ms: 0.051978
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 session：
+ok 29 - 拒绝字段 session：
+  ---
+  duration_ms: 0.045849
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 session： 
+ok 30 - 拒绝字段 session： 
+  ---
+  duration_ms: 0.031046
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 session：1
+ok 31 - 拒绝字段 session：1
+  ---
+  duration_ms: 0.034111
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 session：a/b
+ok 32 - 拒绝字段 session：a/b
+  ---
+  duration_ms: 0.030536
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 state：undefined
+ok 33 - 拒绝字段 state：undefined
+  ---
+  duration_ms: 0.033611
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 state：unknown
+ok 34 - 拒绝字段 state：unknown
+  ---
+  duration_ms: 0.029925
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 state：1
+ok 35 - 拒绝字段 state：1
+  ---
+  duration_ms: 0.028463
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 ts：undefined
+ok 36 - 拒绝字段 ts：undefined
+  ---
+  duration_ms: 0.028843
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 ts：-1
+ok 37 - 拒绝字段 ts：-1
+  ---
+  duration_ms: 0.029444
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 ts：1.5
+ok 38 - 拒绝字段 ts：1.5
+  ---
+  duration_ms: 0.029044
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 ts：Infinity
+ok 39 - 拒绝字段 ts：Infinity
+  ---
+  duration_ms: 0.03348
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 ts：1000
+ok 40 - 拒绝字段 ts：1000
+  ---
+  duration_ms: 0.028563
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 project：/tmp/a
+ok 41 - 拒绝字段 project：/tmp/a
+  ---
+  duration_ms: 0.090195
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 project：a/b
+ok 42 - 拒绝字段 project：a/b
+  ---
+  duration_ms: 0.06674
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 project：a\\b
+ok 43 - 拒绝字段 project：a\\b
+  ---
+  duration_ms: 0.030726
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 project：.
+ok 44 - 拒绝字段 project：.
+  ---
+  duration_ms: 0.04003
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 project：..
+ok 45 - 拒绝字段 project：..
+  ---
+  duration_ms: 0.054662
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 project：
+ok 46 - 拒绝字段 project：
+  ---
+  duration_ms: 0.044897
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 project：1
+ok 47 - 拒绝字段 project：1
+  ---
+  duration_ms: 0.036706
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 project：C:foo
+ok 48 - 拒绝字段 project：C:foo
+  ---
+  duration_ms: 0.029764
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 title：字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字
+ok 49 - 拒绝字段 title：字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字
+  ---
+  duration_ms: 0.054181
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 title：1
+ok 50 - 拒绝字段 title：1
+  ---
+  duration_ms: 0.031838
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 title：换\\n行
+ok 51 - 拒绝字段 title：换\\n行
+  ---
+  duration_ms: 0.034702
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 beat：1
+ok 52 - 拒绝字段 beat：1
+  ---
+  duration_ms: 0.034592
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 beat：true
+ok 53 - 拒绝字段 beat：true
+  ---
+  duration_ms: 0.030856
+  type: 'test'
+  ...
+# Subtest: 拒绝字段 beat：null
+ok 54 - 拒绝字段 beat：null
+  ---
+  duration_ms: 0.029874
+  type: 'test'
+  ...
+# Subtest: 拒绝敏感标题：TOKEN=abc
+ok 55 - 拒绝敏感标题：TOKEN=abc
+  ---
+  duration_ms: 0.163335
+  type: 'test'
+  ...
+# Subtest: 拒绝敏感标题：apiKey
+ok 56 - 拒绝敏感标题：apiKey
+  ---
+  duration_ms: 0.048793
+  type: 'test'
+  ...
+# Subtest: 拒绝敏感标题：Password
+ok 57 - 拒绝敏感标题：Password
+  ---
+  duration_ms: 0.035854
+  type: 'test'
+  ...
+# Subtest: 拒绝敏感标题：我的密钥
+ok 58 - 拒绝敏感标题：我的密钥
+  ---
+  duration_ms: 0.059248
+  type: 'test'
+  ...
+# Subtest: 对象类型与额外字段
+ok 59 - 对象类型与额外字段
+  ---
+  duration_ms: 0.207292
+  type: 'test'
+  ...
+# Subtest: 可选字段与 Unicode 长度
+ok 60 - 可选字段与 Unicode 长度
+  ---
+  duration_ms: 0.147111
+  type: 'test'
+  ...
+# Subtest: 优先级 waiting > error
+ok 61 - 优先级 waiting > error
+  ---
+  duration_ms: 1.512601
+  type: 'test'
+  ...
+# Subtest: 优先级 waiting > done
+ok 62 - 优先级 waiting > done
+  ---
+  duration_ms: 0.088553
+  type: 'test'
+  ...
+# Subtest: 优先级 waiting > working
+ok 63 - 优先级 waiting > working
+  ---
+  duration_ms: 0.067561
+  type: 'test'
+  ...
+# Subtest: 优先级 waiting > idle
+ok 64 - 优先级 waiting > idle
+  ---
+  duration_ms: 0.038858
+  type: 'test'
+  ...
+# Subtest: 优先级 error > done
+ok 65 - 优先级 error > done
+  ---
+  duration_ms: 0.032068
+  type: 'test'
+  ...
+# Subtest: 优先级 error > working
+ok 66 - 优先级 error > working
+  ---
+  duration_ms: 0.032109
+  type: 'test'
+  ...
+# Subtest: 优先级 error > idle
+ok 67 - 优先级 error > idle
+  ---
+  duration_ms: 0.029624
+  type: 'test'
+  ...
+# Subtest: 优先级 done > working
+ok 68 - 优先级 done > working
+  ---
+  duration_ms: 0.029955
+  type: 'test'
+  ...
+# Subtest: 优先级 done > idle
+ok 69 - 优先级 done > idle
+  ---
+  duration_ms: 0.032388
+  type: 'test'
+  ...
+# Subtest: 优先级 working > idle
+ok 70 - 优先级 working > idle
+  ---
+  duration_ms: 0.045829
+  type: 'test'
+  ...
+# Subtest: 完成窗口到期回落且不修改输入
+ok 71 - 完成窗口到期回落且不修改输入
+  ---
+  duration_ms: 0.131298
+  type: 'test'
+  ...
+# Subtest: 空表与离线不参与
+ok 72 - 空表与离线不参与
+  ---
+  duration_ms: 0.074632
+  type: 'test'
+  ...
+# Subtest: 陈旧边界、等待不降级
+ok 73 - 陈旧边界、等待不降级
+  ---
+  duration_ms: 0.059029
+  type: 'test'
+  ...
+1..73
+# tests 73
+# suites 0
+# pass 68
+# fail 5
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 88.681681

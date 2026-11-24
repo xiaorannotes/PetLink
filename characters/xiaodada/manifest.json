@@ -1,0 +1,372 @@
+{
+  "id": "xiaodada",
+  "name": "肖大大",
+  "author": "小染",
+  "version": "1.0.0",
+  "license": "开发者小染（XiaoRan）原创角色素材，随 PetLink 官方发布使用；未经许可不得二改或商业分发",
+  "anchor": {
+    "x": 0.5,
+    "y": 1
+  },
+  "scale": 1,
+  "placeholder": false,
+  "states": {
+    "idle": [
+      {
+        "name": "idle",
+        "fps": 60,
+        "loop": true,
+        "frames": [
+          "frames/idle/soft/base.png"
+        ]
+      }
+    ],
+    "working": [
+      {
+        "name": "typing",
+        "fps": 60,
+        "loop": true,
+        "clip": "action-working",
+        "durationMs": 5000,
+        "frames": [
+          "frames/working/v2/frame_000.webp"
+        ],
+        "startAtMs": 600
+      }
+    ],
+    "done": [
+      {
+        "name": "jump",
+        "fps": 60,
+        "loop": false,
+        "clip": "action-done",
+        "durationMs": 5000,
+        "frames": [
+          "frames/done/v2/frame_000.webp"
+        ]
+      }
+    ],
+    "pet": [
+      {
+        "name": "pet",
+        "fps": 60,
+        "loop": false,
+        "clip": "idle-stretch",
+        "durationMs": 5000,
+        "frames": [
+          "frames/idle/stretch/frame_000.webp"
+        ]
+      },
+      {
+        "name": "heart",
+        "fps": 60,
+        "loop": false,
+        "clip": "action-offline",
+        "durationMs": 5000,
+        "frames": [
+          "frames/offline/v2/frame_000.webp"
+        ]
+      },
+      {
+        "name": "clap",
+        "fps": 60,
+        "loop": false,
+        "clip": "action-done",
+        "durationMs": 5000,
+        "frames": [
+          "frames/done/v2/frame_000.webp"
+        ]
+      }
+    ],
+    "drag": [
+      {
+        "name": "drag",
+        "fps": 60,
+        "loop": true,
+        "frames": [
+          "frames/idle/soft/base.png"
+        ]
+      }
+    ],
+    "waiting": [
+      {
+        "name": "waiting",
+        "fps": 60,
+        "loop": false,
+        "clip": "action-waiting",
+        "durationMs": 5000,
+        "frames": [
+          "frames/waiting/v2/frame_000.webp"
+        ]
+      }
+    ],
+    "error": [
+      {
+        "name": "fail",
+        "fps": 60,
+        "loop": false,
+        "clip": "action-error",
+        "durationMs": 5000,
+        "frames": [
+          "frames/error/v2/frame_000.webp"
+        ]
+      }
+    ],
+    "offline": [
+      {
+        "name": "sleep-loop",
+        "fps": 60,
+        "loop": false,
+        "clip": "action-offline",
+        "durationMs": 5000,
+        "frames": [
+          "frames/offline/v2/frame_000.webp"
+        ]
+      }
+    ],
+    "sleep": [
+      {
+        "name": "sleep",
+        "fps": 60,
+        "loop": true,
+        "clip": "action-sleep",
+        "durationMs": 5000,
+        "frames": [
+          "frames/sleep/v2/frame_000.webp"
+        ]
+      }
+    ],
+    "agent-working": [
+      {
+        "name": "notebook",
+        "fps": 60,
+        "loop": true,
+        "clip": "agent-notebook",
+        "durationMs": 7967,
+        "frames": [
+          "frames/agent-working/book/frame_000.webp"
+        ]
+      }
+    ]
+  },
+  "lines": {
+    "idle": [
+      "陪你歇一会儿",
+      "今天也在这里",
+      "慢慢来呀",
+      "伸个小懒腰",
+      "看看窗外吧",
+      "我在你旁边",
+      "喝口水吧",
+      "安静陪着你"
+    ],
+    "working": [
+      "正在努力呀",
+      "小手忙起来",
+      "认真做事中",
+      "一点点推进",
+      "马上就有进展",
+      "让我专心一下",
+      "键盘响起来",
+      "一起加油呀"
+    ],
+    "waiting": [
+      "等你确认",
+      "来看看我呀",
+      "需要你帮忙",
+      "等你点点头",
+      "这一步交给你",
+      "我会耐心等",
+      "准备好了吗",
+      "一起往下走吧"
+    ],
+    "done": [
+      "完成啦",
+      "这次辛苦啦",
+      "可以歇一会儿",
+      "事情做好啦",
+      "给你一颗星",
+      "又前进一步",
+      "一起庆祝吧",
+      "收工伸懒腰"
+    ],
+    "error": [
+      "好像出错了",
+      "我们再看看",
+      "别着急呀",
+      "需要检查一下",
+      "先歇一小会",
+      "一起找原因",
+      "我陪你处理",
+      "慢慢就会好"
+    ],
+    "offline": [
+      "先休息一下",
+      "等你回来呀",
+      "暂时没连接",
+      "我在这里等",
+      "安静趴一会",
+      "下次再一起",
+      "回来叫我呀",
+      "歇歇小手吧"
+    ],
+    "agent-working": [
+      "认真想办法呢",
+      "翻翻小本子",
+      "这一步交给我",
+      "正在努力思考",
+      "把思路理一理",
+      "一页一页来",
+      "让我琢磨一下",
+      "好像有思路了"
+    ]
+  },
+  "clips": {
+    "eat-bowl": {
+      "file": "eat-bowl/motion.webm",
+      "durationMs": 5000,
+      "fallbackFrames": [
+        "eat-bowl/static-0000.webp",
+        "eat-bowl/static-0075.webp"
+      ]
+    },
+    "eat-noodles": {
+      "file": "eat-noodles/motion.webm",
+      "durationMs": 5000,
+      "fallbackFrames": [
+        "eat-noodles/static-0000.webp",
+        "eat-noodles/static-0075.webp"
+      ]
+    },
+    "eat-handheld": {
+      "file": "eat-handheld/motion.webm",
+      "durationMs": 5000,
+      "fallbackFrames": [
+        "eat-handheld/static-0000.webp",
+        "eat-handheld/static-0075.webp"
+      ]
+    },
+    "eat-spoon": {
+      "file": "eat-spoon/motion.webm",
+      "durationMs": 5000,
+      "fallbackFrames": [
+        "eat-spoon/static-0000.webp",
+        "eat-spoon/static-0075.webp"
+      ]
+    },
+    "eat-icecream": {
+      "file": "eat-icecream/motion.webm",
+      "durationMs": 5000,
+      "fallbackFrames": [
+        "eat-icecream/static-0000.webp",
+        "eat-icecream/static-0075.webp"
+      ]
+    },
+    "eat-drink": {
+      "file": "eat-drink/motion.webm",
+      "durationMs": 5000,
+      "fallbackFrames": [
+        "eat-drink/static-0000.webp",
+        "eat-drink/static-0075.webp"
+      ]
+    },
+    "eat-candy": {
+      "file": "eat-candy/motion.webm",
+      "durationMs": 5000,
+      "fallbackFrames": [
+        "eat-candy/static-0000.webp",
+        "eat-candy/static-0075.webp"
+      ]
+    },
+    "idle-stretch": {
+      "file": "idle-stretch/motion.webm",
+      "durationMs": 5000,
+      "fallbackFrames": [
+        "frames/idle/stretch/frame_000.webp"
+      ]
+    },
+    "action-working": {
+      "file": "action-working/motion.webm",
+      "durationMs": 5000,
+      "fallbackFrames": [
+        "frames/working/v2/frame_000.webp"
+      ]
+    },
+    "action-waiting": {
+      "file": "action-waiting/motion.webm",
+      "durationMs": 5000,
+      "fallbackFrames": [
+        "frames/waiting/v2/frame_000.webp"
+      ]
+    },
+    "action-done": {
+      "file": "action-done/motion.webm",
+      "durationMs": 5000,
+      "fallbackFrames": [
+        "frames/done/v2/frame_000.webp"
+      ]
+    },
+    "action-error": {
+      "file": "action-error/motion.webm",
+      "durationMs": 5000,
+      "fallbackFrames": [
+        "frames/error/v2/frame_000.webp"
+      ]
+    },
+    "action-offline": {
+      "file": "action-offline/motion.webm",
+      "durationMs": 5000,
+      "fallbackFrames": [
+        "frames/offline/v2/frame_000.webp"
+      ]
+    },
+    "action-sleep": {
+      "file": "action-sleep/motion.webm",
+      "durationMs": 5000,
+      "fallbackFrames": [
+        "frames/sleep/v2/frame_000.webp"
+      ]
+    },
+    "agent-notebook": {
+      "file": "agent-notebook/motion.webm",
+      "durationMs": 7967,
+      "fallbackFrames": [
+        "frames/agent-working/book/frame_000.webp"
+      ]
+    }
+  },
+  "emotions": [
+    {
+      "name": "emotion-angry",
+      "file": "emotions/emotion-angry.webp"
+    },
+    {
+      "name": "emotion-cheerful",
+      "file": "emotions/emotion-cheerful.webp"
+    },
+    {
+      "name": "emotion-confused",
+      "file": "emotions/emotion-confused.webp"
+    },
+    {
+      "name": "emotion-exasperated",
+      "file": "emotions/emotion-exasperated.webp"
+    },
+    {
+      "name": "emotion-frightened",
+      "file": "emotions/emotion-frightened.webp"
+    },
+    {
+      "name": "emotion-serious",
+      "file": "emotions/emotion-serious.webp"
+    },
+    {
+      "name": "emotion-shy",
+      "file": "emotions/emotion-shy.webp"
+    },
+    {
+      "name": "emotion-starry",
+      "file": "emotions/emotion-starry.webp"
+    }
+  ]
+}

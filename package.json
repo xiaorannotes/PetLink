@@ -1,0 +1,27 @@
+{
+  "name": "petlink",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "test": "node --test packages/*/*.test.mjs apps/desktop/*.test.mjs",
+    "demo": "node scripts/demo-hub.mjs",
+    "desktop": "electron apps/desktop",
+    "demo:desktop": "node scripts/demo-desktop.mjs",
+    "build:character": "python3 scripts/build-xiaodada.py",
+    "smoke": "node scripts/smoke-drag.mjs && node scripts/smoke-m6.mjs && node scripts/smoke-m5-1.mjs && node scripts/smoke-m6p2.mjs"
+  },
+  "devDependencies": {
+    "electron": "^42.0.0"
+  },
+  "dependencies": {
+    "uiohook-napi": "1.5.5"
+  }
+}

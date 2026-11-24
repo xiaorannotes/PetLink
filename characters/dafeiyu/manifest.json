@@ -1,0 +1,1089 @@
+{
+  "id": "dafeiyu",
+  "name": "大肥鱼",
+  "author": "小染",
+  "version": "1.0.0",
+  "license": "原创角色素材，供 PetLink 使用",
+  "anchor": {
+    "x": 0.5,
+    "y": 1
+  },
+  "scale": 1,
+  "placeholder": false,
+  "states": {
+    "idle": [
+      {
+        "name": "idle",
+        "fps": 60,
+        "loop": true,
+        "clip": "action-idle",
+        "durationMs": 10042,
+        "frames": [
+          "frames/action-idle.png"
+        ]
+      }
+    ],
+    "working": [
+      {
+        "name": "typing",
+        "fps": 60,
+        "loop": true,
+        "clip": "action-working",
+        "durationMs": 10042,
+        "frames": [
+          "frames/action-working.png"
+        ]
+      }
+    ],
+    "agent-working": [
+      {
+        "name": "agent-working",
+        "fps": 60,
+        "loop": true,
+        "clip": "action-agent-working",
+        "durationMs": 10042,
+        "frames": [
+          "frames/action-agent-working.png"
+        ]
+      }
+    ],
+    "waiting": [
+      {
+        "name": "waiting",
+        "fps": 60,
+        "loop": true,
+        "clip": "action-waiting",
+        "durationMs": 10042,
+        "frames": [
+          "frames/action-waiting.png"
+        ]
+      }
+    ],
+    "done": [
+      {
+        "name": "jump",
+        "fps": 60,
+        "loop": false,
+        "clip": "action-done",
+        "durationMs": 10042,
+        "frames": [
+          "frames/action-done.png"
+        ]
+      }
+    ],
+    "error": [
+      {
+        "name": "fail",
+        "fps": 60,
+        "loop": false,
+        "clip": "action-error",
+        "durationMs": 4917,
+        "frames": [
+          "frames/action-error.png"
+        ]
+      }
+    ],
+    "offline": [
+      {
+        "name": "sleep-loop",
+        "fps": 60,
+        "loop": false,
+        "clip": "action-offline",
+        "durationMs": 10042,
+        "frames": [
+          "frames/action-offline.png"
+        ]
+      }
+    ],
+    "sleep": [
+      {
+        "name": "sleep",
+        "fps": 60,
+        "loop": true,
+        "clip": "action-sleep",
+        "durationMs": 10042,
+        "frames": [
+          "frames/action-sleep.png"
+        ]
+      }
+    ],
+    "drag": [
+      {
+        "name": "drag",
+        "fps": 60,
+        "loop": true,
+        "clip": "action-drag",
+        "durationMs": 10042,
+        "frames": [
+          "frames/action-drag.png"
+        ]
+      }
+    ],
+    "pet": [
+      {
+        "name": "pet-wave",
+        "fps": 60,
+        "loop": false,
+        "clip": "pet-wave",
+        "durationMs": 10042,
+        "frames": [
+          "frames/pet-wave.png"
+        ]
+      },
+      {
+        "name": "pet-jump",
+        "fps": 60,
+        "loop": false,
+        "clip": "pet-jump",
+        "durationMs": 10042,
+        "frames": [
+          "frames/pet-jump.png"
+        ]
+      },
+      {
+        "name": "pet-tickle",
+        "fps": 60,
+        "loop": false,
+        "clip": "pet-tickle",
+        "durationMs": 10042,
+        "frames": [
+          "frames/pet-tickle.png"
+        ]
+      },
+      {
+        "name": "pet-shy",
+        "fps": 60,
+        "loop": false,
+        "clip": "pet-shy",
+        "durationMs": 10042,
+        "frames": [
+          "frames/pet-shy.png"
+        ]
+      },
+      {
+        "name": "pet-tsundere",
+        "fps": 60,
+        "loop": false,
+        "clip": "pet-tsundere",
+        "durationMs": 10042,
+        "frames": [
+          "frames/pet-tsundere.png"
+        ]
+      }
+    ]
+  },
+  "clips": {
+    "bonus-001": {
+      "file": "clips/bonus-001.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-001.png"
+      ]
+    },
+    "bonus-002": {
+      "file": "clips/bonus-002.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-002.png"
+      ]
+    },
+    "bonus-003": {
+      "file": "clips/bonus-003.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-003.png"
+      ]
+    },
+    "bonus-004": {
+      "file": "clips/bonus-004.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-004.png"
+      ]
+    },
+    "bonus-005": {
+      "file": "clips/bonus-005.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-005.png"
+      ]
+    },
+    "bonus-006": {
+      "file": "clips/bonus-006.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-006.png"
+      ]
+    },
+    "bonus-007": {
+      "file": "clips/bonus-007.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-007.png"
+      ]
+    },
+    "bonus-008": {
+      "file": "clips/bonus-008.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-008.png"
+      ]
+    },
+    "bonus-009": {
+      "file": "clips/bonus-009.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-009.png"
+      ]
+    },
+    "bonus-010": {
+      "file": "clips/bonus-010.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-010.png"
+      ]
+    },
+    "bonus-011": {
+      "file": "clips/bonus-011.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-011.png"
+      ]
+    },
+    "bonus-012": {
+      "file": "clips/bonus-012.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-012.png"
+      ]
+    },
+    "bonus-013": {
+      "file": "clips/bonus-013.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-013.png"
+      ]
+    },
+    "bonus-014": {
+      "file": "clips/bonus-014.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-014.png"
+      ]
+    },
+    "bonus-015": {
+      "file": "clips/bonus-015.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-015.png"
+      ]
+    },
+    "bonus-016": {
+      "file": "clips/bonus-016.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-016.png"
+      ]
+    },
+    "bonus-017": {
+      "file": "clips/bonus-017.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-017.png"
+      ]
+    },
+    "bonus-018": {
+      "file": "clips/bonus-018.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-018.png"
+      ]
+    },
+    "bonus-019": {
+      "file": "clips/bonus-019.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-019.png"
+      ]
+    },
+    "bonus-020": {
+      "file": "clips/bonus-020.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-020.png"
+      ]
+    },
+    "bonus-021": {
+      "file": "clips/bonus-021.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-021.png"
+      ]
+    },
+    "bonus-022": {
+      "file": "clips/bonus-022.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-022.png"
+      ]
+    },
+    "bonus-023": {
+      "file": "clips/bonus-023.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-023.png"
+      ]
+    },
+    "bonus-024": {
+      "file": "clips/bonus-024.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-024.png"
+      ]
+    },
+    "bonus-025": {
+      "file": "clips/bonus-025.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-025.png"
+      ]
+    },
+    "bonus-026": {
+      "file": "clips/bonus-026.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-026.png"
+      ]
+    },
+    "bonus-027": {
+      "file": "clips/bonus-027.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-027.png"
+      ]
+    },
+    "bonus-028": {
+      "file": "clips/bonus-028.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-028.png"
+      ]
+    },
+    "bonus-029": {
+      "file": "clips/bonus-029.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-029.png"
+      ]
+    },
+    "bonus-030": {
+      "file": "clips/bonus-030.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-030.png"
+      ]
+    },
+    "bonus-031": {
+      "file": "clips/bonus-031.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-031.png"
+      ]
+    },
+    "bonus-032": {
+      "file": "clips/bonus-032.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-032.png"
+      ]
+    },
+    "bonus-033": {
+      "file": "clips/bonus-033.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-033.png"
+      ]
+    },
+    "bonus-034": {
+      "file": "clips/bonus-034.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-034.png"
+      ]
+    },
+    "bonus-035": {
+      "file": "clips/bonus-035.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-035.png"
+      ]
+    },
+    "bonus-036": {
+      "file": "clips/bonus-036.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-036.png"
+      ]
+    },
+    "bonus-037": {
+      "file": "clips/bonus-037.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-037.png"
+      ]
+    },
+    "bonus-038": {
+      "file": "clips/bonus-038.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-038.png"
+      ]
+    },
+    "bonus-039": {
+      "file": "clips/bonus-039.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-039.png"
+      ]
+    },
+    "action-offline": {
+      "file": "clips/action-offline.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/action-offline.png"
+      ]
+    },
+    "bonus-040": {
+      "file": "clips/bonus-040.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-040.png"
+      ]
+    },
+    "bonus-041": {
+      "file": "clips/bonus-041.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-041.png"
+      ]
+    },
+    "action-done": {
+      "file": "clips/action-done.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/action-done.png"
+      ]
+    },
+    "bonus-042": {
+      "file": "clips/bonus-042.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-042.png"
+      ]
+    },
+    "action-agent-working": {
+      "file": "clips/action-agent-working.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/action-agent-working.png"
+      ]
+    },
+    "bonus-043": {
+      "file": "clips/bonus-043.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-043.png"
+      ]
+    },
+    "action-error": {
+      "file": "clips/action-error.webm",
+      "durationMs": 4917,
+      "fallbackFrames": [
+        "frames/action-error.png"
+      ]
+    },
+    "action-waiting": {
+      "file": "clips/action-waiting.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/action-waiting.png"
+      ]
+    },
+    "bonus-044": {
+      "file": "clips/bonus-044.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-044.png"
+      ]
+    },
+    "bonus-045": {
+      "file": "clips/bonus-045.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-045.png"
+      ]
+    },
+    "bonus-046": {
+      "file": "clips/bonus-046.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-046.png"
+      ]
+    },
+    "eat-handheld": {
+      "file": "clips/eat-handheld.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/eat-handheld.png"
+      ]
+    },
+    "bonus-047": {
+      "file": "clips/bonus-047.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-047.png"
+      ]
+    },
+    "bonus-048": {
+      "file": "clips/bonus-048.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-048.png"
+      ]
+    },
+    "bonus-049": {
+      "file": "clips/bonus-049.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-049.png"
+      ]
+    },
+    "bonus-050": {
+      "file": "clips/bonus-050.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-050.png"
+      ]
+    },
+    "bonus-051": {
+      "file": "clips/bonus-051.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-051.png"
+      ]
+    },
+    "bonus-052": {
+      "file": "clips/bonus-052.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-052.png"
+      ]
+    },
+    "eat-noodles": {
+      "file": "clips/eat-noodles.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/eat-noodles.png"
+      ]
+    },
+    "bonus-053": {
+      "file": "clips/bonus-053.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-053.png"
+      ]
+    },
+    "eat-drink": {
+      "file": "clips/eat-drink.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/eat-drink.png"
+      ]
+    },
+    "eat-spoon": {
+      "file": "clips/eat-spoon.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/eat-spoon.png"
+      ]
+    },
+    "eat-candy": {
+      "file": "clips/eat-candy.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/eat-candy.png"
+      ]
+    },
+    "bonus-054": {
+      "file": "clips/bonus-054.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-054.png"
+      ]
+    },
+    "eat-bowl": {
+      "file": "clips/eat-bowl.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/eat-bowl.png"
+      ]
+    },
+    "bonus-055": {
+      "file": "clips/bonus-055.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-055.png"
+      ]
+    },
+    "bonus-056": {
+      "file": "clips/bonus-056.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-056.png"
+      ]
+    },
+    "bonus-057": {
+      "file": "clips/bonus-057.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-057.png"
+      ]
+    },
+    "bonus-058": {
+      "file": "clips/bonus-058.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-058.png"
+      ]
+    },
+    "bonus-059": {
+      "file": "clips/bonus-059.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-059.png"
+      ]
+    },
+    "bonus-060": {
+      "file": "clips/bonus-060.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-060.png"
+      ]
+    },
+    "eat-icecream": {
+      "file": "clips/eat-icecream.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/eat-icecream.png"
+      ]
+    },
+    "bonus-061": {
+      "file": "clips/bonus-061.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-061.png"
+      ]
+    },
+    "bonus-062": {
+      "file": "clips/bonus-062.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-062.png"
+      ]
+    },
+    "bonus-063": {
+      "file": "clips/bonus-063.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-063.png"
+      ]
+    },
+    "bonus-064": {
+      "file": "clips/bonus-064.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-064.png"
+      ]
+    },
+    "bonus-065": {
+      "file": "clips/bonus-065.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-065.png"
+      ]
+    },
+    "bonus-066": {
+      "file": "clips/bonus-066.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-066.png"
+      ]
+    },
+    "bonus-067": {
+      "file": "clips/bonus-067.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-067.png"
+      ]
+    },
+    "action-sleep": {
+      "file": "clips/action-sleep.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/action-sleep.png"
+      ]
+    },
+    "bonus-068": {
+      "file": "clips/bonus-068.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-068.png"
+      ]
+    },
+    "bonus-069": {
+      "file": "clips/bonus-069.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-069.png"
+      ]
+    },
+    "bonus-070": {
+      "file": "clips/bonus-070.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-070.png"
+      ]
+    },
+    "bonus-071": {
+      "file": "clips/bonus-071.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-071.png"
+      ]
+    },
+    "action-working": {
+      "file": "clips/action-working.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/action-working.png"
+      ]
+    },
+    "bonus-072": {
+      "file": "clips/bonus-072.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-072.png"
+      ]
+    },
+    "bonus-073": {
+      "file": "clips/bonus-073.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-073.png"
+      ]
+    },
+    "bonus-074": {
+      "file": "clips/bonus-074.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-074.png"
+      ]
+    },
+    "bonus-075": {
+      "file": "clips/bonus-075.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-075.png"
+      ]
+    },
+    "bonus-076": {
+      "file": "clips/bonus-076.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-076.png"
+      ]
+    },
+    "bonus-077": {
+      "file": "clips/bonus-077.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-077.png"
+      ]
+    },
+    "bonus-078": {
+      "file": "clips/bonus-078.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-078.png"
+      ]
+    },
+    "bonus-079": {
+      "file": "clips/bonus-079.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-079.png"
+      ]
+    },
+    "action-idle": {
+      "file": "clips/action-idle.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/action-idle.png"
+      ]
+    },
+    "bonus-080": {
+      "file": "clips/bonus-080.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-080.png"
+      ]
+    },
+    "bonus-081": {
+      "file": "clips/bonus-081.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-081.png"
+      ]
+    },
+    "bonus-082": {
+      "file": "clips/bonus-082.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-082.png"
+      ]
+    },
+    "bonus-083": {
+      "file": "clips/bonus-083.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-083.png"
+      ]
+    },
+    "bonus-084": {
+      "file": "clips/bonus-084.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-084.png"
+      ]
+    },
+    "bonus-085": {
+      "file": "clips/bonus-085.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/bonus-085.png"
+      ]
+    },
+    "action-drag": {
+      "file": "clips/action-drag.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/action-drag.png"
+      ]
+    },
+    "pet-tickle": {
+      "file": "clips/pet-tickle.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/pet-tickle.png"
+      ]
+    },
+    "pet-jump": {
+      "file": "clips/pet-jump.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/pet-jump.png"
+      ]
+    },
+    "pet-shy": {
+      "file": "clips/pet-shy.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/pet-shy.png"
+      ]
+    },
+    "pet-wave": {
+      "file": "clips/pet-wave.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/pet-wave.png"
+      ]
+    },
+    "pet-tsundere": {
+      "file": "clips/pet-tsundere.webm",
+      "durationMs": 10042,
+      "fallbackFrames": [
+        "frames/pet-tsundere.png"
+      ]
+    }
+  },
+  "clipLabels": {
+    "bonus-001": "东张西望",
+    "bonus-002": "鲸鱼吐泡泡特效",
+    "bonus-003": "骑木马",
+    "bonus-004": "轻快记录",
+    "bonus-005": "轻快摇摆舞",
+    "bonus-006": "踢毽子",
+    "bonus-007": "超大伸懒腰",
+    "bonus-008": "讨糖南瓜灯",
+    "bonus-009": "装点圣诞树",
+    "bonus-010": "被落叶淹没",
+    "bonus-011": "被吓一跳",
+    "bonus-012": "蝴蝶蜜蜂环绕头顶开花",
+    "bonus-013": "蓝鲸现世",
+    "bonus-014": "萌化小幽灵",
+    "bonus-015": "荡秋千",
+    "bonus-016": "舞狮头",
+    "bonus-017": "穿针乞巧",
+    "bonus-018": "碎碎念-擦桌碎碎念",
+    "bonus-019": "碎碎念-对屏碎碎念",
+    "bonus-020": "碎碎念-发呆碎碎念",
+    "bonus-021": "用鲸鱼尾巴拍打地面",
+    "bonus-022": "玩游戏气急败坏",
+    "bonus-023": "玩水枪",
+    "bonus-024": "照镜子",
+    "bonus-025": "深度思考碎碎念",
+    "bonus-026": "涮火锅",
+    "bonus-027": "晨间刷牙",
+    "bonus-028": "是啊，吃什么",
+    "bonus-029": "整体换装试色",
+    "bonus-030": "放风筝",
+    "bonus-031": "放烟花",
+    "bonus-032": "放河灯",
+    "bonus-033": "放孔明灯",
+    "bonus-034": "收红包",
+    "bonus-035": "撸猫",
+    "bonus-036": "摇扇纳凉",
+    "bonus-037": "插茱萸赏菊",
+    "bonus-038": "拆礼物",
+    "bonus-039": "抽陀螺",
+    "action-offline": "打瞌睡被惊醒",
+    "bonus-040": "扑克魔术",
+    "bonus-041": "悠闲哼歌",
+    "action-done": "雀跃庆祝",
+    "bonus-042": "工作状态-清点归档",
+    "action-agent-working": "思考冒泡",
+    "bonus-043": "工作状态-忙碌点按",
+    "action-error": "垂头叹气冒汗",
+    "action-waiting": "原地踱步张望",
+    "bonus-044": "小提琴演奏",
+    "bonus-045": "小幅度原地360度旋转展示",
+    "bonus-046": "女仆屈膝礼仪",
+    "eat-handheld": "大口吃零食",
+    "bonus-047": "堆雪人",
+    "bonus-048": "哈欠连天",
+    "bonus-049": "吹笛子",
+    "bonus-050": "吹气球",
+    "bonus-051": "吃饺子",
+    "bonus-052": "吃青团",
+    "eat-noodles": "吃长寿面",
+    "bonus-053": "吃重阳糕",
+    "eat-drink": "吃西瓜",
+    "eat-spoon": "吃腊八粥",
+    "eat-candy": "吃糖葫芦",
+    "bonus-054": "吃粽子",
+    "eat-bowl": "吃白饭",
+    "bonus-055": "吃汤圆",
+    "bonus-056": "吃晚餐",
+    "bonus-057": "吃早餐",
+    "bonus-058": "吃年糕",
+    "bonus-059": "吃大闸蟹",
+    "bonus-060": "吃午餐",
+    "eat-icecream": "吃冰淇淋融化",
+    "bonus-061": "吃Token",
+    "bonus-062": "可爱宅舞",
+    "bonus-063": "变鸽子",
+    "bonus-064": "原地重力下蹲压缩",
+    "bonus-065": "原地蹲下玩玩具汽车",
+    "bonus-066": "原地跳跃抓碎头顶物品",
+    "bonus-067": "原地敲击桌面互动",
+    "action-sleep": "原地小憩沉眠",
+    "bonus-068": "原地专心玩魔方",
+    "bonus-069": "动物环绕",
+    "bonus-070": "凭空生花",
+    "bonus-071": "写福字",
+    "action-working": "写代码",
+    "bonus-072": "偷吃零食被抓住",
+    "bonus-073": "优雅女仆舞",
+    "bonus-074": "中秋赏月吃月饼",
+    "bonus-075": "下五子棋",
+    "bonus-076": "三球抛接",
+    "bonus-077": "螃蟹走路",
+    "bonus-078": "漂浮踏步",
+    "bonus-079": "左转奔跑",
+    "action-idle": "待机呼吸休闲",
+    "bonus-080": "余额-钱袋满溢",
+    "bonus-081": "余额-钱袋如常",
+    "bonus-082": "余额-金袋叮当",
+    "bonus-083": "余额-袋空如洗",
+    "bonus-084": "余额-数金皱眉",
+    "bonus-085": "余额-分文不剩",
+    "action-drag": "拖拽悬空反馈",
+    "pet-tickle": "挠痒咯咯笑",
+    "pet-jump": "开心跃动",
+    "pet-shy": "害羞惊讶",
+    "pet-wave": "元气挥手",
+    "pet-tsundere": "傲娇生气"
+  },
+  "lines": {
+    "idle": [
+      "大肥鱼吐个泡泡陪你~",
+      "今天也要游得开心呀",
+      "歇一会儿再出发吧",
+      "水波晃呀晃，真舒服",
+      "摸摸鱼也没关系哦",
+      "随时叫大肥鱼就好",
+      "在桌面安安静静陪着你",
+      "需要帮忙的时候喊我~"
+    ],
+    "working": [
+      "大肥鱼也在努力敲代码！",
+      "噼里啪啦，灵感涌出来啦",
+      "节奏超稳，继续加油~",
+      "认真干活的样子最帅气",
+      "咕噜咕噜，全速推进中",
+      "键盘响起来，思路跟着飞",
+      "专心致志，大肥鱼陪跑中",
+      "这一波操作稳稳的！"
+    ],
+    "waiting": [
+      "大肥鱼等你确认哟~",
+      "这边需要你点个头呀",
+      "来回踱步等你回来",
+      "准备好了，等你拍板！",
+      "有新进度等你看看~",
+      "眨眨眼，等你发指令",
+      "快来看看这一步对不对",
+      "大肥鱼乖乖在这里等你"
+    ],
+    "done": [
+      "耶！大肥鱼为你欢呼！",
+      "搞定啦，奖励自己一口零食~",
+      "完美收工，撒花庆祝！",
+      "太棒了，这一轮大成功！",
+      "任务完成，气泡都变甜了",
+      "顺利通关，开心转圈圈~",
+      "大肥鱼拍手叫好！",
+      "又完成一件大事啦！"
+    ],
+    "error": [
+      "哎呀，好像遇到小波折了",
+      "别慌，大肥鱼陪你一起排查",
+      "冒汗了，快看看哪里卡住了",
+      "深呼吸，我们慢慢修好它",
+      "遇到一个小 Bug，马上拿下",
+      "有点棘手，一起想想办法",
+      "没关系，调整一下再试一次",
+      "大肥鱼给你递擦汗毛巾~"
+    ],
+    "offline": [
+      "先打个盹儿，回头见~",
+      "连接休息啦，有事再喊我",
+      "大肥鱼先去水里泡一会儿",
+      "暂时离线，保持好心情哦",
+      "收工休息，记得多喝水",
+      "挥挥鳍，下次继续一起玩",
+      "任务告一段落，放松一下",
+      "大肥鱼随时待命回来~"
+    ]
+  }
+}

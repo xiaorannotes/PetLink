@@ -206,6 +206,15 @@ function updateTrayMenu(){
  ]));
 }
 let petMouseIgnored=false;
+function enforcePetTopMost(){
+ if(!pet||pet.isDestroyed()||!settings.alwaysOnTop)return;
+ if(process.platform==='win32'){
+  pet.setAlwaysOnTop(true,'screen-saver',1);
+  if(pet.isVisible())pet.moveTop();
+ }else{
+  pet.setAlwaysOnTop(true,'floating');
+ }
+}
 function resize(){
  if(!pet||pet.isDestroyed())return;
  const width=Math.round(300*settings.scale),height=Math.round(350*settings.scale);
@@ -216,7 +225,8 @@ function resize(){
   try{pet.setSize(width,height);}finally{if(unlock)pet.setResizable(false);}
  }
  pet.setOpacity(settings.opacity);
- pet.setAlwaysOnTop(settings.alwaysOnTop,'floating');
+ if(settings.alwaysOnTop)enforcePetTopMost();
+ else pet.setAlwaysOnTop(false);
  petMouseIgnored=!!settings.clickThrough;
  pet.setIgnoreMouseEvents(petMouseIgnored,{forward:true});
 }
@@ -308,6 +318,15 @@ async function boot(){
   dragLog('startup '+JSON.stringify({displays:screen.getAllDisplays().map(d=>({id:d.id,scaleFactor:d.scaleFactor,bounds:d.bounds})),initialBounds:pet.getBounds()}));
   pet.setVisibleOnAllWorkspaces(true,{visibleOnFullScreen:true});await pet.loadFile(path.join(here,'pet.html'));
   pet.on('moved',()=>{const [x,y]=pet.getPosition();settings.position={x,y};persist().catch(()=>{});});
+  if(process.platform==='win32'){
+   pet.on('blur',()=>{setTimeout(enforcePetTopMost,80);});
+   pet.on('show',enforcePetTopMost);
+   screen.on('display-metrics-changed',enforcePetTopMost);
+   const winTopGuard=setInterval(()=>{if(pet&&!pet.isDestroyed()&&pet.isVisible()&&settings.alwaysOnTop)enforcePetTopMost();},2500);
+   winTopGuard.unref?.();
+   app.once('before-quit',()=>clearInterval(winTopGuard));
+   enforcePetTopMost();
+  }
  });
  await stage('pet','创建托盘',async()=>{
   const icon=nativeImage.createFromPath(path.join(root,'assets','app-icon.png'));tray=new Tray(icon.resize({width:18,height:18}));tray.setToolTip('PetLink');updateTrayMenu();

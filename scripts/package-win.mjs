@@ -4,6 +4,8 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const pkg=JSON.parse(await readFile(path.join(root,'package.json'),'utf8'));
+const version=pkg.version||'1.0.1';
 const zipName='electron-v42.0.0-win32-x64.zip';
 const cache=path.join(root,'dist/.cache');
 const archive=path.join(cache,zipName);
@@ -46,7 +48,6 @@ await rm(path.join(folder,'electron.exe'));
 const appResources=path.join(folder,'resources/app');
 await mkdir(appResources,{recursive:true});
 
-const pkg=JSON.parse(await readFile(path.join(root,'package.json'),'utf8'));
 pkg.main='apps/desktop/entry.mjs';
 await writeFile(path.join(appResources,'package.json'),JSON.stringify(pkg,null,2)+'\n');
 
@@ -66,36 +67,85 @@ for(const name of ['ws','uiohook-napi','node-gyp-build']){
 await access(path.join(appResources,'node_modules/uiohook-napi/prebuilds/win32-x64/uiohook-napi.node'));
 
 await writeFile(path.join(folder,'使用说明-Win.txt'),[
- 'PetLink (Windows x64 版) 使用说明：',
- '1. 解压整个文件夹后，双击 PetLink.exe 即可启动（控制窗展示分步启动进度，桌宠大肥鱼置顶显示）。',
- '2. 9 大 AI Agent 一键自动监测：',
- '   - 在控制页「首页」点击对应 Agent 的「启用自动监测」即可开启（支持 Antigravity / Claude Code / Codex / Cursor / DeepSeek / 豆包专业版 / Muse / GrokBot / WorkBuddy）。',
- '   - 针对 Windows 网页端 AI（如 Muse、DeepSeek、豆包、Grok）：打开 Chrome / Edge 扩展管理页 chrome://extensions，开启右上角「开发者模式」，点击「加载已解压的扩展程序」并选择同目录下的「PetLink-浏览器扩展」文件夹，即可免 Token 自动握手配对！',
- '3. 双信号陪伴引擎与像素级鼠标穿透：',
- '   - AI 状态变化（等待输入 / 完成 / 报错 / 工作中）最高优响应；键盘敲击驱动活跃打字陪伴与浮字互动；角色四周透明像素自动穿透鼠标点击，不遮挡屏幕按钮。',
- '4. 键盘热力图、今日陪伴日报与三套主题皮肤：',
- '   - 热力图支持 104 / 87 / 75% 配列与自定义配色；日报支持一键保存高清 PNG；内置蜜桃米白、薄荷奶绿、芋泥星夜三套主题。',
- '5. 隐私承诺：',
- '   - 100% 本地 SQLite (WITHOUT ROWID) 存储，只记按键类别次数，绝不记录输入文本、按键顺序或窗口标题，零云端遥测。',
- '6. 排障提示：',
- '   - 如遇启动异常，请查看同目录或 %APPDATA%\\petlink 下的 boot.log；更新版本前请在任务管理器中结束 PetLink.exe 进程。',
+ `PetLink v${version} (Windows x64 版) 使用说明：`,
+ '1. 安装完成后可通过桌面快捷方式或开始菜单启动 PetLink。',
+ '2. v1.0.1 修复了打开其他软件或浏览器时桌宠偶发被遮挡的问题（采用 screen-saver 最高置顶层级 + 自动守护）。',
+ '3. 9 大 AI Agent 一键自动监测：在控制页「首页」点击对应 Agent 的「启用自动监测」即可开启。',
+ '4. 网页端 AI（Muse / DeepSeek / 豆包 / Grok）：打开 chrome://extensions 加载安装目录下的「PetLink-浏览器扩展」即可免 Token 自动握手配对。',
+ '5. 隐私承诺：100% 本地 SQLite (WITHOUT ROWID) 存储，只记按键类别次数，绝不记录输入正文或窗口标题。',
  '',
- '----------------------------------------',
- '开源社区素材致谢与授权声明：',
- '· 大肥鱼（深深）动画素材 — 原始来源 PC2005-cloud/dsh-pet (https://github.com/PC2005-cloud/dsh-pet)',
- '  桌面版整理：MerZlin（dsh-pet-indesktop）',
- '  角色 OC「溟月」© 画师上善无形，以 CC BY-NC-SA 类条款授权，仅限个人非商业使用。',
- '以上素材仅供个人非商业用途，与相关 AI 公司无官方关联。'
+ '开源地址：https://github.com/xiaorannotes/PetLink'
 ].join('\r\n')+'\r\n','utf8');
 
-const outZip=path.resolve(root,'../../outputs','PetLink-Win-x64.zip');
-await rm(outZip,{force:true});
-// Python zipfile marks non-ASCII entry names as UTF-8 for Windows extractors.
-run('python3',['-c',`import pathlib,sys,zipfile
-base=pathlib.Path(sys.argv[1])
-with zipfile.ZipFile(sys.argv[2], 'w', zipfile.ZIP_DEFLATED, compresslevel=6) as archive:
- for item in [base, *sorted(base.rglob('*'))]:
-  archive.write(item, item.relative_to(base.parent).as_posix())
-`,folder,outZip]);
+// Build genuine Windows NSIS Setup Installer (.exe) via makensis
+const outExe=path.resolve(root,'../../outputs',`PetLink-Setup-v${version}-x64.exe`);
+await rm(outExe,{force:true});
+const iconPath=path.join(root,'assets/app-icon.ico');
+const nsiPath=path.join(staging,'installer.nsi');
+
+const nsiScript=`
+Unicode True
+!include "MUI2.nsh"
+
+Name "PetLink v${version}"
+OutFile "${outExe}"
+InstallDir "$LOCALAPPDATA\\Programs\\PetLink"
+InstallDirRegKey HKCU "Software\\PetLink" "InstallDir"
+RequestExecutionLevel user
+SetCompressor /SOLID lzma
+
+!define MUI_ICON "${iconPath}"
+!define MUI_UNICON "${iconPath}"
+!define MUI_ABORTWARNING
+!define MUI_FINISHPAGE_RUN "$INSTDIR\\PetLink.exe"
+!define MUI_FINISHPAGE_RUN_TEXT "立即启动 PetLink 桌宠"
+
+!insertmacro MUI_PAGE_WELCOME
+!insertmacro MUI_PAGE_DIRECTORY
+!insertmacro MUI_PAGE_INSTFILES
+!insertmacro MUI_PAGE_FINISH
+
+!insertmacro MUI_UNPAGE_CONFIRM
+!insertmacro MUI_UNPAGE_INSTFILES
+
+!insertmacro MUI_LANGUAGE "SimpChinese"
+!insertmacro MUI_LANGUAGE "English"
+
+Section "PetLink Core" SecMain
+  SetOutPath "$INSTDIR"
+  ; Gracefully close any running PetLink.exe before upgrading
+  nsExec::Exec 'taskkill /F /IM PetLink.exe /T'
+  Sleep 400
+
+  File /r "${folder}/*"
+
+  WriteRegStr HKCU "Software\\PetLink" "InstallDir" "$INSTDIR"
+  WriteRegStr HKCU "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\PetLink" "DisplayName" "PetLink"
+  WriteRegStr HKCU "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\PetLink" "DisplayVersion" "${version}"
+  WriteRegStr HKCU "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\PetLink" "Publisher" "XiaoRan (xiaorannotes)"
+  WriteRegStr HKCU "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\PetLink" "DisplayIcon" "$INSTDIR\\PetLink.exe"
+  WriteRegStr HKCU "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\PetLink" "UninstallString" '"$INSTDIR\\Uninstall.exe"'
+  WriteUninstaller "$INSTDIR\\Uninstall.exe"
+
+  CreateDirectory "$SMPROGRAMS\\PetLink"
+  CreateShortCut "$SMPROGRAMS\\PetLink\\PetLink.lnk" "$INSTDIR\\PetLink.exe" "" "$INSTDIR\\resources\\app\\assets\\app-icon.ico"
+  CreateShortCut "$SMPROGRAMS\\PetLink\\卸载 PetLink.lnk" "$INSTDIR\\Uninstall.exe"
+  CreateShortCut "$DESKTOP\\PetLink.lnk" "$INSTDIR\\PetLink.exe" "" "$INSTDIR\\resources\\app\\assets\\app-icon.ico"
+SectionEnd
+
+Section "Uninstall"
+  nsExec::Exec 'taskkill /F /IM PetLink.exe /T'
+  Sleep 400
+  Delete "$DESKTOP\\PetLink.lnk"
+  RMDir /r "$SMPROGRAMS\\PetLink"
+  RMDir /r "$INSTDIR"
+  DeleteRegKey HKCU "Software\\PetLink"
+  DeleteRegKey HKCU "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\PetLink"
+SectionEnd
+`;
+
+await writeFile(nsiPath,nsiScript,'utf8');
+run('makensis',['-V2',nsiPath]);
+
 console.log(`Packaged Windows folder: ${folder}`);
-console.log(`Packaged Windows zip archive: ${outZip} (${(await stat(outZip)).size} bytes)`);
+console.log(`Packaged Windows NSIS installer: ${outExe} (${(await stat(outExe)).size} bytes)`);

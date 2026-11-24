@@ -47,8 +47,9 @@ await mkdir(bundleDir,{recursive:true});
 
 // Use macOS ditto to preserve framework symlinks inside Electron.app
 run('ditto',['-x','-k',archive,extractDir]);
-await rename(path.join(extractDir,'Electron.app'),appBundle);
-await rm(extractDir,{recursive:true,force:true});
+run('rm',['-rf',appBundle]);
+run('mv',[path.join(extractDir,'Electron.app'),appBundle]);
+run('rm',['-rf',extractDir]);
 
 const appResources=path.join(appBundle,'Contents/Resources/app');
 await mkdir(appResources,{recursive:true});
@@ -57,7 +58,7 @@ const pkg=JSON.parse(await readFile(path.join(root,'package.json'),'utf8'));
 pkg.main='apps/desktop/entry.mjs';
 await writeFile(path.join(appResources,'package.json'),JSON.stringify(pkg,null,2)+'\n');
 
-for(const name of ['apps','packages','characters','assets']){
+for(const name of ['apps','packages','characters','assets','extensions']){
  await cp(path.join(root,name),path.join(appResources,name),{
   recursive:true,
   filter:source=>path.basename(source)!=='node_modules'

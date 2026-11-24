@@ -80,9 +80,14 @@ plist=plist
  .replace(/<key>CFBundleIdentifier<\/key>\s*<string>[^<]*<\/string>/,'<key>CFBundleIdentifier</key>\n\t<string>petlink.desktop</string>');
 await writeFile(plistPath,plist,'utf8');
 
+// Re-sign PetLink.app with ad-hoc signature so Apple Silicon never flags modified Info.plist/app as corrupted
+run('codesign',['--force','--deep','--sign','-',appBundle]);
+
 await writeFile(path.join(bundleDir,'使用说明-Mac.txt'),
 `PetLink (macOS 版) 使用说明：
-1. 双击 PetLink.app 启动（控制窗先行展示分步启动进度，桌宠窗口置顶显示）。
+1. 将 PetLink.app 拖入 Applications（应用程序）文件夹。
+   【重要】因本软件为个人开源项目、未购买 Apple 开发者年度公证证书，从浏览器下载后首次打开若提示「已损坏」或「无法验证开发者」，请打开终端运行以下一行命令解除下载隔离标记，再双击即可正常启动：
+   xattr -cr /Applications/PetLink.app
 2. 双信号陪伴引擎：
    - 优先级 1：AI 状态变化（等待输入 / 完成 / 报错 / 工作中）——最高优响应；
    - 优先级 2：键鼠活跃信号（活跃打字 / 短暂空闲 / 5 分钟无操作进入离开睡眠），打字时桌宠弹出原创轻量互动浮字，支持窗口鼠标穿透开关；

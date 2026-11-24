@@ -49,7 +49,8 @@ const base = await mkdtemp('/tmp/petlink-posters9-');
 const shotsDir = path.join(base, 'shots');
 await mkdir(shotsDir, { recursive: true });
 
-const child = spawn(appBinary, [
+const attachMode = process.argv.includes('--attach');
+const child = attachMode ? null : spawn(appBinary, [
   '--user-data-dir=' + base + '/electron',
   '--inspect=9395',
   '--remote-debugging-port=9394',
@@ -73,29 +74,31 @@ try {
   const control = await connect(ts.find(t => t.url.endsWith('control.html'))); clients.push(control);
   const main = await connect((await targets(9395))[0]); clients.push(main);
 
-  await sleep(600);
-  await control.eval(`document.getElementById('skip')?.click()`);
-  await control.eval(`window.petlink.call('settings',{character:'dafeiyu',theme:'lavender',onboarded:true,heatmapPalette:'twilight'})`);
-  await sleep(1200);
+  if (!attachMode) {
+    await sleep(600);
+    await control.eval(`document.getElementById('skip')?.click()`);
+    await control.eval(`window.petlink.call('settings',{character:'dafeiyu',theme:'lavender',onboarded:true,heatmapPalette:'twilight'})`);
+    await sleep(1200);
 
-  // Seed rich activity data
-  const hourlySeed = [
-    [9, 340, 88, 65], [10, 560, 128, 92], [11, 490, 115, 78], [13, 280, 70, 50],
-    [14, 650, 168, 118], [15, 740, 192, 138], [16, 520, 135, 90], [17, 310, 92, 55]
-  ];
-  const keySeed = {
-    E: 430, SPACE: 410, A: 295, S: 255, D: 245, F: 205, J: 190, K: 185, L: 170, ENTER: 325,
-    BACKSPACE: 200, T: 220, I: 230, O: 195, N: 215, R: 225, C: 180, V: 160, LSHIFT: 175,
-    LCTRL: 145, LMETA: 165, TAB: 135, W: 155, Q: 100, P: 115, M: 130, B: 95, G: 110, H: 120,
-    U: 140, Y: 105, Z: 80, X: 90, COMMA: 100, PERIOD: 110, SLASH: 85, 1: 70, 2: 75, 3: 65, ESC: 90
-  };
-  for (const [hour, k, c, w] of hourlySeed) {
-    await control.eval(`window.petlink.call('activity-record',${JSON.stringify({ hour, keystrokes: k, clicks: c, wheelSteps: w })})`);
+    // Seed rich activity data
+    const hourlySeed = [
+      [9, 340, 88, 65], [10, 560, 128, 92], [11, 490, 115, 78], [13, 280, 70, 50],
+      [14, 650, 168, 118], [15, 740, 192, 138], [16, 520, 135, 90], [17, 310, 92, 55]
+    ];
+    const keySeed = {
+      E: 430, SPACE: 410, A: 295, S: 255, D: 245, F: 205, J: 190, K: 185, L: 170, ENTER: 325,
+      BACKSPACE: 200, T: 220, I: 230, O: 195, N: 215, R: 225, C: 180, V: 160, LSHIFT: 175,
+      LCTRL: 145, LMETA: 165, TAB: 135, W: 155, Q: 100, P: 115, M: 130, B: 95, G: 110, H: 120,
+      U: 140, Y: 105, Z: 80, X: 90, COMMA: 100, PERIOD: 110, SLASH: 85, 1: 70, 2: 75, 3: 65, ESC: 90
+    };
+    for (const [hour, k, c, w] of hourlySeed) {
+      await control.eval(`window.petlink.call('activity-record',${JSON.stringify({ hour, keystrokes: k, clicks: c, wheelSteps: w })})`);
+    }
+    await control.eval(`window.petlink.call('activity-record',${JSON.stringify({
+      keystrokes: 0, clicks: 0, wheelSteps: 0, keys: keySeed, aiWorkingSeconds: 9120, aiDoneCount: 15
+    })})`);
+    await sleep(300);
   }
-  await control.eval(`window.petlink.call('activity-record',${JSON.stringify({
-    keystrokes: 0, clicks: 0, wheelSteps: 0, keys: keySeed, aiWorkingSeconds: 9120, aiDoneCount: 15
-  })})`);
-  await sleep(300);
 
   // Resize control window for crisp screenshots
   await main.eval(`(() => {
@@ -448,6 +451,9 @@ try {
     console.log('Generated:', outFile);
   }
 } finally {
+  if (attachMode) {
+    try { await main.eval(`global.__posterWin?.close()`); } catch {}
+  }
   for (const c of clients) { try { c.close(); } catch {} }
-  try { process.kill(-child.pid, 'SIGKILL'); } catch {}
+  if (child) { try { process.kill(-child.pid, 'SIGKILL'); } catch {} }
 }

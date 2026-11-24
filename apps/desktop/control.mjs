@@ -29,7 +29,7 @@ const navIcons=['link','grid','card','heart','star','paw','bell','chat','wrench'
 for(const [index,b] of [...document.querySelectorAll('nav button')].entries())b.prepend(icon(navIcons[index]||'star'));
 
 function renderThemeControls(s){
- const currentTheme=s.settings?.theme||'peach';
+ const currentTheme=s.settings?.theme||'lavender';
  applyThemeToDocument(document,currentTheme);
  const select=$('theme');
  if(select&&select.options.length!==THEME_IDS.length){

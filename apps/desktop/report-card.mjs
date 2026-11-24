@@ -62,7 +62,7 @@ export function buildReportSummary(snapshot) {
   return {
     day,
     characterName: snapshot?.character?.manifest?.name || '肖大大',
-    themeId: snapshot?.settings?.theme || 'peach',
+    themeId: snapshot?.settings?.theme || 'lavender',
     totals: {
       keystrokes,
       clicks,

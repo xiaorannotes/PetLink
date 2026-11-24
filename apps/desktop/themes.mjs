@@ -3,7 +3,7 @@
 export const THEMES = Object.freeze({
   peach: {
     id: 'peach',
-    name: '蜜桃米白（默认）',
+    name: '蜜桃米白',
     bg: '#FBF6EC',
     card: '#FFFDF8',
     brand: '#F28CA0',
@@ -31,7 +31,7 @@ export const THEMES = Object.freeze({
   },
   lavender: {
     id: 'lavender',
-    name: '芋泥星夜',
+    name: '芋泥星夜（默认）',
     bg: '#F5F2FA',
     card: '#FDFBFF',
     brand: '#8E74D1',
@@ -48,7 +48,7 @@ export const THEMES = Object.freeze({
 export const THEME_IDS = Object.freeze(Object.keys(THEMES));
 
 export function getTheme(themeId) {
-  return THEMES[themeId] || THEMES.peach;
+  return THEMES[themeId] || THEMES.lavender;
 }
 
 export function applyThemeToDocument(doc, themeId) {

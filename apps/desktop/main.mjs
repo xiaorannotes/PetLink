@@ -35,7 +35,7 @@ if(process.platform==='win32')app.setAppUserModelId('petlink.desktop');
 const dataDir=process.env.PETLINK_DATA_DIR||defaultDataDir();
 let settings={
  mode:'companion',
- theme:'peach',
+ theme:'lavender',
  clickThrough:false,
  typingFloatEnabled:true,
  heatmapLayout:'104',

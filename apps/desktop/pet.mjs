@@ -57,7 +57,7 @@ window.petlink.onPlay(event=>{
 let data,current='',action,start=performance.now(),lastEvent=Date.now(),eventStamp=0,interaction=null,interactionUntil=0,drag=null,oldState='',oldChatBusy=false;
 function update(s){
  s=petData(s);
- if(document.documentElement?.dataset)document.documentElement.dataset.theme=s.settings?.theme||'peach';
+ if(document.documentElement?.dataset)document.documentElement.dataset.theme=s.settings?.theme||'lavender';
  main.classList.toggle('click-through',!!s.settings?.clickThrough);
  if(s.activity?.state)userActivityState=s.activity.state;
  if(Number.isFinite(s.activity?.idleSeconds))computerIdleSeconds=s.activity.idleSeconds;

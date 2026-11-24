@@ -120,9 +120,6 @@ node scripts/package-mac.mjs
 
 本软件使用的部分角色素材来自开源社区项目，特此致谢：
 
-- **CrossPet**（© lokicorvus 及贡献者）— [https://github.com/lokicorvus/crosspet](https://github.com/lokicorvus/crosspet)
-  - 角色设定原作者：ZipZipPipe（GPT 白龙、GLM、千问、Kimi、Grok 设定）
-  - 角色立绘以 CC BY-NC-SA 4.0 授权使用
 - **大肥鱼（深深）动画素材** — 原始来源 [PC2005-cloud/dsh-pet](https://github.com/PC2005-cloud/dsh-pet)
   - 桌面版整理：MerZlin（dsh-pet-indesktop）
   - 角色 OC「溟月」© 画师上善无形，以 CC BY-NC-SA 类条款授权，仅限个人非商业使用

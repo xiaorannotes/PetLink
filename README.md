@@ -84,6 +84,63 @@ PetLink 控制页首页内置 **9 大主流 AI 编程与对话工具** 的一键
 
 ---
 
+## 🎨 导入与制作你自己的专属角色包
+
+PetLink 支持**无需改代码、直接导入你自己的角色文件夹**（无论是二次元 OC、像素风角色、还是透明背景动画），也欢迎在 GitHub 提交 PR 分享社区角色！
+
+### 1. 软件内 3 步一键导入
+1. 在桌面打开 **PetLink 控制页**，切换到左侧菜单的 **「宠物」** 标签页；
+2. 点击 **「导入本地角色包文件夹」** 按钮，选择你准备好的角色文件夹（文件夹根目录需包含 `manifest.json`）；
+3. 校验通过后角色会自动复制到本机数据目录并出现在「角色」下拉列表中，直接切换即可生效！
+
+### 2. 角色包标准目录结构
+支持 **透明背景序列帧（`.png` / `.webp`）** 或 **透明通道视频（VP9 Alpha `.webm` + 兜底静态帧）**：
+
+```text
+my-pet/
+├── manifest.json          # 角色元数据与状态动作配置（必填）
+├── frames/                # 透明背景逐帧图片（.png 或 .webp，必填）
+│   ├── idle_01.png
+│   ├── working_01.png
+│   ├── waiting_01.png
+│   ├── done_01.png
+│   ├── error_01.png
+│   └── offline_01.png
+└── clips/                 # 可选：透明通道 .webm 视频片段（支持 60fps 丝滑动画）
+    └── action-idle.webm
+```
+
+### 3. 最小可用 `manifest.json` 模板
+必填的 6 个核心状态为：`idle`（待机）、`working`（敲键盘/工作中）、`waiting`（等待确认）、`done`（任务完成）、`error`（出错）、`offline`（离线/休眠）；可选状态包括 `pet`（摸摸）、`drag`（拖拽）、`sleep`（离开睡眠）、`agent-working`（AI 专属工作中）：
+
+```json
+{
+  "id": "my-pet",
+  "name": "我的专属搭子",
+  "author": "你的昵称",
+  "version": "1.0.0",
+  "license": "个人使用 / CC BY-NC-SA 4.0",
+  "anchor": { "x": 0.5, "y": 1 },
+  "scale": 1,
+  "states": {
+    "idle":    [{ "name": "idle",       "fps": 12, "loop": true,  "frames": ["frames/idle_01.png"] }],
+    "working": [{ "name": "typing",     "fps": 12, "loop": true,  "frames": ["frames/working_01.png"] }],
+    "waiting": [{ "name": "waiting",    "fps": 12, "loop": true,  "frames": ["frames/waiting_01.png"] }],
+    "done":    [{ "name": "jump",       "fps": 12, "loop": false, "frames": ["frames/done_01.png"] }],
+    "error":   [{ "name": "fail",       "fps": 12, "loop": false, "frames": ["frames/error_01.png"] }],
+    "offline": [{ "name": "sleep-loop", "fps": 12, "loop": true,  "frames": ["frames/offline_01.png"] }]
+  }
+}
+```
+
+> **提示**：
+> - 所有图片路径必须位于 `frames/` 目录下（仅允许字母、数字、`_`、`-`、`/`，且不得包含 `..`）；
+> - 如需添加自定义气泡台词，可在 `manifest.json` 中增加 `lines` 字段（每个状态提供 `8–12` 条中文短句）；
+> - 完整视频片段写法可直接参考仓库内的 [`characters/dafeiyu/manifest.json`](./characters/dafeiyu/manifest.json)；
+> - 如需制作专属定制角色包，也可在软件「宠物」页查看定制联系方式（微信号：`XiaoRanNotes`）。
+
+---
+
 ## 🔒 隐私与安全承诺
 
 - **只记计数，不记内容**：仅按按键类别（如 `KeyA`、`Enter`、`Space`）累加每日敲击次数，**绝不记录任何输入文本、按键先后序列或密码规律**。

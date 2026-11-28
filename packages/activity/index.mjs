@@ -403,6 +403,7 @@ export function startActivityCollector({
   hook,
   store,
   onKeystroke = () => {},
+  onClick = () => {},
   onActivity = () => {},
   setTimer = setInterval,
   clearTimer = clearInterval
@@ -419,6 +420,7 @@ export function startActivityCollector({
 
   const handleMousedown = () => {
     store.recordClick(1);
+    onClick();
   };
 
   const handleWheel = event => {

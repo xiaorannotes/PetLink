@@ -25,6 +25,7 @@ import {createConfigManager as cursor} from '../../packages/config-manager/curso
 import {createCompanion} from '../../packages/companion/index.mjs';
 import {randomUUID} from 'node:crypto';
 import {validateManifest} from './character.mjs';
+import {createActivityReporter,generateDeviceId} from './activity-reporter.mjs';
 let logSecrets=[];
 const bootLog=createBootLogger(app,dialog,{secrets:()=>logSecrets});
 let dragLines=0,dragMoves=0;
@@ -55,12 +56,15 @@ let settings={
  webhookEnabled:false,
  webhookUrl:'',
  webhookHeaders:{},
+ activityReportEnabled:false,
+ activityReportToken:'',
+ deviceId:'',
  onboarded:false,
  character:'xiaodada',
  enabledAgents:['antigravity','claude-code','codex','cursor','deepseek','doubao-pro','muse','grokbot','workbuddy']
 };
 let chat,chatWindow,chatDoneUntil=0;
-let companion,activityStore=null,autoDetector=null,controlPage=null,controlPageRequest=0;
+let companion,activityStore=null,activityReporter=null,autoDetector=null,controlPage=null,controlPageRequest=0;
 let hub,pet,control,tray,notifier,characters=[],closing=false;
 const nodeRuntime=(process.env.PATH||'').split(path.delimiter).map(dir=>path.join(dir,process.platform==='win32'?'node.exe':'node')).find(file=>existsSync(file))||'node';
 const managers={
@@ -85,7 +89,7 @@ function getSystemIdleSeconds(){
  try{return typeof powerMonitor?.getSystemIdleTime==='function'?powerMonitor.getSystemIdleTime():null;}catch{return null;}
 }
 async function snapshot(){
- if(!hub||!selected())return bootSnapshot({...settings,chat:{...settings.chat,apiKey:settings.chat.apiKey?'***':''}},characters);
+ if(!hub||!selected())return bootSnapshot({...settings,chat:{...settings.chat,apiKey:settings.chat.apiKey?'***':''},activityReportToken:settings.activityReportToken?'***':''},characters);
  const tools={};
  const enabledSet=new Set(Array.isArray(settings.enabledAgents)?settings.enabledAgents:[]);
  for(const [id,def] of Object.entries(AGENT_DEFINITIONS)){
@@ -128,15 +132,16 @@ async function snapshot(){
   ...hs,
   activity:activityStats?.activity||{state:userActivity,idleSeconds:Math.max(0,(Date.now()-lastKeyboardActivity)/1000),awayThresholdSeconds:300},
   activityStats,
+  activityReport:activityReporter?.getStatus()||{enabled:!!settings.activityReportEnabled,hasToken:!!settings.activityReportToken,deviceId:settings.deviceId||'',state:'disabled',message:'未启用',lastReportAt:null},
   companion:companion?.snapshot(),
   controlPage,
   controlPageRequest,
-  settings:{...settings,chat:{...settings.chat,apiKey:settings.chat.apiKey?'***':''}},
+  settings:{...settings,chat:{...settings.chat,apiKey:settings.chat.apiKey?'***':''},activityReportToken:settings.activityReportToken?'***':''},
   chat:chat?.snapshot(),
   tools,
   characters:characters.map(c=>({id:c.manifest.id,name:c.manifest.name})),
   character:{manifest:c.manifest,base:pathToFileURL(c.folder+path.sep).href},
-  log:redact(hub.store.log,[settings.chat.apiKey]),
+  log:redact(hub.store.log,[settings.chat.apiKey,settings.activityReportToken]),
   port:hub.port,
   token:hub.token.slice(0,4)+'…'+hub.token.slice(-4)
  };
@@ -175,7 +180,11 @@ function startTyping(){
     store:activityStore,
     onKeystroke:()=>{
      notifyKeystrokePulse();
+     activityReporter?.recordActivity();
      hub?.store.accept({v:1,source:'typing',session:'desktop-integrated',state:'working',count:1,ts:Date.now()});
+    },
+    onClick:()=>{
+     activityReporter?.recordActivity();
     },
     onActivity:()=>{lastKeyboardActivity=Date.now();}
    });
@@ -183,7 +192,7 @@ function startTyping(){
   }else{
    stopTyping=startEmbeddedTyping({
     hook:uIOhook,
-    onActivity:notifyKeystrokePulse,
+    onActivity:()=>{notifyKeystrokePulse();activityReporter?.recordActivity();},
     onCount:count=>hub.store.accept({v:1,source:'typing',session:'desktop-integrated',state:count?'working':'idle',count,ts:Date.now()})
    });
   }
@@ -258,7 +267,7 @@ async function boot(){
    awayThresholdSeconds:300
   });
  });
- await stage('data','读取设置',async()=>{try{settings={...settings,...JSON.parse(await readFile(path.join(dataDir,'desktop.json'),'utf8'))};}catch(e){if(e.code!=='ENOENT')throw Error('读取本机设置失败，请检查 desktop.json 格式');}logSecrets=[settings.chat?.apiKey].filter(v=>typeof v==='string');settings.chat=validateChat({...{url:'',apiKey:'',model:'',prompt:DEFAULT_PROMPT},...settings.chat});logSecrets=[settings.chat.apiKey];});
+ await stage('data','读取设置',async()=>{try{settings={...settings,...JSON.parse(await readFile(path.join(dataDir,'desktop.json'),'utf8'))};}catch(e){if(e.code!=='ENOENT')throw Error('读取本机设置失败，请检查 desktop.json 格式');}let deviceIdCreated=false;if(typeof settings.deviceId!=='string'||!settings.deviceId.trim()){settings.deviceId=generateDeviceId();deviceIdCreated=true;}settings.activityReportEnabled=!!settings.activityReportEnabled;settings.activityReportToken=typeof settings.activityReportToken==='string'?settings.activityReportToken:'';logSecrets=[settings.chat?.apiKey,settings.activityReportToken].filter(v=>typeof v==='string'&&v);settings.chat=validateChat({...{url:'',apiKey:'',model:'',prompt:DEFAULT_PROMPT},...settings.chat});logSecrets=[settings.chat.apiKey,settings.activityReportToken].filter(v=>typeof v==='string'&&v);if(deviceIdCreated)await persist();activityReporter=createActivityReporter({getConfig:()=>({enabled:settings.activityReportEnabled,token:settings.activityReportToken,deviceId:settings.deviceId}),getHourlyActivity:date=>activityStore?activityStore.todaySnapshot({day:date}).hourly:[],stateFilePath:path.join(dataDir,'activity-report-state.json'),onStatusChange:()=>{broadcast().catch(()=>{});}});activityReporter.start();});
  const builtIn=await stage('characters','加载内置角色',async()=>{
   const {readdir}=await import('node:fs/promises');
   const builtinRoot=path.join(root,'characters');
@@ -410,7 +419,11 @@ ipcMain.handle('desktop',async(event,command,arg)=>{
    activityStore.recordBatch(arg);
    if(Number(arg.keystrokes)>0){
     notifyKeystrokePulse();
+    activityReporter?.recordActivity();
     hub?.store.accept({v:1,source:'typing',session:'desktop-integrated',state:'working',count:Number(arg.keystrokes),ts:Date.now()});
+   }
+   if(Number(arg.clicks)>0){
+    activityReporter?.recordActivity();
    }
   }
   if(Number.isFinite(arg?.aiWorkingSeconds)&&arg.aiWorkingSeconds>0)activityStore.recordAiWorkSeconds(arg.aiWorkingSeconds);
@@ -437,7 +450,7 @@ ipcMain.handle('desktop',async(event,command,arg)=>{
   return {ok:true,filePath:targetPath,bytes:buf.length};
  }
  if(command==='settings'){
-  const allowed=['mode','theme','clickThrough','typingFloatEnabled','heatmapLayout','heatmapPalette','heatmapCustomLow','heatmapCustomHigh','chat','lookAtMouse','typingAutostart','typingEnabled','scale','opacity','sound','quietHours','notifications','webhookEnabled','webhookUrl','webhookHeaders','onboarded','character'];
+  const allowed=['mode','theme','clickThrough','typingFloatEnabled','heatmapLayout','heatmapPalette','heatmapCustomLow','heatmapCustomHigh','chat','lookAtMouse','typingAutostart','typingEnabled','scale','opacity','sound','quietHours','notifications','webhookEnabled','webhookUrl','webhookHeaders','activityReportEnabled','activityReportToken','onboarded','character'];
   if(!arg||Object.keys(arg).some(k=>!allowed.includes(k)))throw Error('设置字段无效');
   const next={...settings,...arg};
   if(!['companion','agent'].includes(next.mode))throw Error('模式无效');
@@ -445,7 +458,10 @@ ipcMain.handle('desktop',async(event,command,arg)=>{
   if(!KEYBOARD_LAYOUTS[next.heatmapLayout])throw Error('键盘配列无效');
   if(next.heatmapPalette!=='custom'&&!HEATMAP_PALETTES[next.heatmapPalette])throw Error('热力图配色无效');
   if(arg.chat){next.chat=validateChat({...settings.chat,...arg.chat});if(arg.chat.apiKey==='***')next.chat.apiKey=settings.chat.apiKey;}
-  for(const k of ['lookAtMouse','typingAutostart','typingEnabled','clickThrough','typingFloatEnabled'])if(typeof next[k]!=='boolean')throw Error('开关无效');
+  if(arg.activityReportToken==='***')next.activityReportToken=settings.activityReportToken;
+  if(typeof next.activityReportToken!=='string')throw Error('上报密钥无效');
+  next.activityReportToken=next.activityReportToken.trim();
+  for(const k of ['lookAtMouse','typingAutostart','typingEnabled','clickThrough','typingFloatEnabled','activityReportEnabled'])if(typeof next[k]!=='boolean')throw Error('开关无效');
   if(!characters.some(c=>c.manifest.id===next.character))throw Error('角色不存在');
   if(!Number.isFinite(next.scale)||next.scale<.5||next.scale>2||!Number.isFinite(next.opacity)||next.opacity<.2||next.opacity>1)throw Error('大小或不透明度超出范围');
   isQuietHour(Date.now(),next.quietHours);if(!Array.isArray(next.notifications)||next.notifications.some(s=>!['waiting','done','error'].includes(s)))throw Error('通知状态无效');
@@ -453,11 +469,22 @@ ipcMain.handle('desktop',async(event,command,arg)=>{
   if(!next.webhookHeaders||Array.isArray(next.webhookHeaders)||typeof next.webhookHeaders!=='object'||Object.values(next.webhookHeaders).some(v=>typeof v!=='string'))throw Error('自定义头必须为字符串键值对象');
   const notificationChanged=['quietHours','notifications','sound','webhookEnabled','webhookUrl','webhookHeaders'].some(k=>JSON.stringify(next[k])!==JSON.stringify(settings[k]));
   const typingChanged=settings.typingEnabled!==next.typingEnabled;
-  settings=next;logSecrets=[...logSecrets,settings.chat.apiKey];
+  const activityReportChanged=settings.activityReportEnabled!==next.activityReportEnabled||settings.activityReportToken!==next.activityReportToken;
+  settings=next;logSecrets=[...logSecrets,settings.chat.apiKey,settings.activityReportToken].filter(v=>typeof v==='string'&&v);
   await persist();
   if(typingChanged){if(settings.typingEnabled)startTyping();else disableTyping();}
+  if(activityReportChanged)activityReporter?.notifyConfigChanged();
   resize();updateTrayMenu();
   if(notificationChanged)resetNotifier();
+ }
+ if(command==='activity-report-now'){
+  if(!activityReporter)throw Error('上报模块未初始化');
+  if(!settings.activityReportEnabled)return {ok:false,message:'请先开启云小涧上报开关'};
+  if(!settings.activityReportToken)return {ok:false,message:'请先填写专属密钥'};
+  const res=await activityReporter.reportNow({force:true,allowEmpty:true});
+  await broadcast();
+  const st=activityReporter.getStatus();
+  return {ok:!!res?.ok,message:st.message};
  }
  if(command==='test'){hub.store.accept({v:1,source:arg?.source||'generic',session:'desktop-test-'+Date.now(),state:arg?.state||'done',ts:Date.now(),title:'连接测试'},{synthetic:true});}
  if(command==='clear')hub.store.clearLog();
@@ -484,6 +511,6 @@ setInterval(()=>{
  broadcast().catch(()=>{});
 },1000).unref();
 boot().catch(e=>bootLog(e.stack));
-app.on('before-quit',event=>{if(closing)return;event.preventDefault();closing=true;disableTyping();activityStore?.close();notifier?.close();Promise.all([persist(),notifier?.flush(),companion?.flush()]).then(()=>hub?.close()).catch(e=>bootLog(e.stack)).finally(()=>app.quit());});
+app.on('before-quit',event=>{if(closing)return;event.preventDefault();closing=true;disableTyping();notifier?.close();Promise.all([persist(),notifier?.flush(),companion?.flush(),activityReporter?.flush({timeoutMs:3000}).catch(()=>{})]).then(()=>{activityReporter?.stop();activityStore?.close();return hub?.close();}).catch(e=>bootLog(e.stack)).finally(()=>app.quit());});
 }).catch(error=>{bootLog(`[boot] ready failed\n${error.stack||error}`);try{dialog.showErrorBox('PetLink 启动错误',error.stack||String(error));}catch{}});
 }

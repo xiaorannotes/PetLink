@@ -27,7 +27,8 @@
  --bg:#F5F2FA;--card:#FDFBFF;--brand:#8E74D1;--brand-light:#B29CE8;--border:#E0D8F0;
  --text:#3E3456;--muted:#7C7096;--accent-bg:#EAE3F8;--accent-text:#574191;--soft-bg:#EFEAFB;
 }
-*{box-sizing:border-box}
+*{box-sizing:border-box;scrollbar-width:none}
+*::-webkit-scrollbar{display:none}
 body{margin:0;height:100vh;display:flex;flex-direction:column;overflow:hidden;color:var(--text);background:radial-gradient(ellipse at top right,var(--soft-bg),transparent 60%),var(--bg)}
 header{display:flex;align-items:center;gap:14px;padding:14px 24px;border-bottom:1px solid var(--border);flex-shrink:0}
 #brand-avatar{width:48px;height:48px;object-fit:cover;border-radius:50%;background:var(--accent-bg);border:1px solid var(--border)}
@@ -146,7 +147,8 @@ input[type=range]::-webkit-slider-thumb{appearance:none;width:17px;height:17px;b
 .mini-chat .chat-guide{margin:6px 0;padding:16px}
 .mini-chat h2{font-size:18px}
 #chat-settings label{display:grid;grid-template-columns:130px minmax(0,1fr);align-items:start}
-#chat-save,#chat-view form button,.chat-guide button{background:linear-gradient(135deg,var(--brand-light),var(--brand));color:white;border-color:transparent}
+#chat-save,#activity-report-save,#chat-view form button,.chat-guide button{background:linear-gradient(135deg,var(--brand-light),var(--brand));color:white;border-color:transparent}
+#activity-report-now{margin-left:8px}
 #typing-card{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
 #typing-card h2{margin:0}
 #typing-card p{font-size:12px;margin:0}

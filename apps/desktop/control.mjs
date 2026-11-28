@@ -94,6 +94,7 @@ function render(s){
  renderMode(s);
  renderChat($('chat-view'),s,call);
  renderTyping(s);
+ renderActivityReport(s);
  renderCompanion(s);
  renderHeatmapView($('heatmap-view'),s,call);
  renderReportView($('report-view'),s,call);
@@ -264,6 +265,64 @@ function renderTyping(s){
 
 $('chat-save').onclick=async()=>{const chat={url:$('chat-url').value.trim(),model:$('chat-model').value.trim(),prompt:$('chat-prompt').value};if($('chat-key').value)chat.apiKey=$('chat-key').value;const r=await call('settings',{chat});if(r.ok)$('chat-key').value='';};
 $('chat-reset').onclick=()=>{$('chat-prompt').value=DEFAULT_PROMPT;};$('chat-clear').onclick=()=>call('chat-clear');
+
+function renderActivityReport(s){
+ const toggle=$('activity-report-enabled'),tokenInput=$('activity-report-token'),statusEl=$('activity-report-status');
+ if(!toggle||!tokenInput||!statusEl)return;
+ const report=s.activityReport||{};
+ const hasSavedToken=!!(report.hasToken||s.settings?.activityReportToken==='***');
+ toggle.checked=!!s.settings?.activityReportEnabled;
+ tokenInput.placeholder=hasSavedToken?'已保存密钥（留空保留，粘贴新密钥可覆盖）':'粘贴云小涧「我的 → MCP 接入（Pro）」专属密钥';
+ const statusText=report.message||(s.settings?.activityReportEnabled?'已启用，等待上报':'未启用');
+ statusEl.textContent=`状态：${statusText}`;
+}
+
+if($('activity-report-enabled'))$('activity-report-enabled').onchange=async()=>{
+ const checked=$('activity-report-enabled').checked;
+ const typed=$('activity-report-token').value.trim();
+ const hasSaved=!!(data?.activityReport?.hasToken||data?.settings?.activityReportToken==='***');
+ if(checked&&!typed&&!hasSaved){
+  $('activity-report-enabled').checked=false;
+  $('message').textContent='请先填入专属密钥后再开启云小涧上报';
+  return;
+ }
+ const payload={activityReportEnabled:checked};
+ if(typed)payload.activityReportToken=typed;
+ const r=await call('settings',payload);
+ if(r?.ok&&typed)$('activity-report-token').value='';
+};
+
+if($('activity-report-save'))$('activity-report-save').onclick=async()=>{
+ const checked=$('activity-report-enabled').checked;
+ const typed=$('activity-report-token').value.trim();
+ const hasSaved=!!(data?.activityReport?.hasToken||data?.settings?.activityReportToken==='***');
+ if(checked&&!typed&&!hasSaved){
+  $('activity-report-enabled').checked=false;
+  $('message').textContent='请先填入专属密钥后再开启云小涧上报';
+  return;
+ }
+ const payload={activityReportEnabled:checked};
+ if(typed)payload.activityReportToken=typed;
+ const r=await call('settings',payload);
+ if(r?.ok&&typed)$('activity-report-token').value='';
+};
+
+if($('activity-report-now'))$('activity-report-now').onclick=async()=>{
+ const btn=$('activity-report-now');
+ const typed=$('activity-report-token').value.trim();
+ if(typed){
+  const saved=await call('settings',{activityReportEnabled:true,activityReportToken:typed});
+  if(!saved?.ok)return;
+  $('activity-report-token').value='';
+ }
+ btn.disabled=true;
+ try{
+  const r=await window.petlink.call('activity-report-now');
+  $('message').textContent=r?.message||(r?.ok?'已上报':'上报失败');
+ }finally{
+  btn.disabled=false;
+ }
+};
 
 function renderMode(s){
  const agent=s.settings.mode==='agent';

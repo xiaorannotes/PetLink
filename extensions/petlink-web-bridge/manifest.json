@@ -19,8 +19,7 @@
         "https://www.doubao.com/*",
         "https://grok.com/*",
         "https://x.com/i/grok*",
-        "https://*.muse.ai/*",
-        "https://muse.*/*"
+        "https://*.muse.ai/*"
       ],
       "js": ["content.js"],
       "run_at": "document_idle"

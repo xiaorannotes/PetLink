@@ -1,0 +1,46 @@
+name: Build & Upload macOS DMG
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag to attach DMG to (e.g. v1.0.3)'
+        required: true
+        default: 'v1.0.3'
+
+permissions:
+  contents: write
+
+jobs:
+  build-mac:
+    runs-on: macos-14
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install runtime dependencies
+        run: npm install --omit=dev
+
+      - name: Package macOS arm64 DMG
+        env:
+          PETLINK_OUT_DIR: ${{ github.workspace }}/release-out
+        run: node scripts/package-mac.mjs
+
+      - name: Upload DMG to GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="${{ github.event.inputs.tag || github.ref_name }}"
+          echo "Uploading PetLink-Mac-arm64.dmg to release $TAG..."
+          if ! gh release view "$TAG" >/dev/null 2>&1; then
+            gh release create "$TAG" --title "PetLink $TAG" --generate-notes
+          fi
+          gh release upload "$TAG" release-out/PetLink-Mac-arm64.dmg --clobber

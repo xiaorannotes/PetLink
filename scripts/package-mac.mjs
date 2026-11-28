@@ -66,9 +66,13 @@ for(const name of ['apps','packages','characters','assets','extensions']){
 }
 
 await mkdir(path.join(appResources,'node_modules'),{recursive:true});
-for(const name of ['ws','uiohook-napi','node-gyp-build']){
+for(const name of ['uiohook-napi','node-gyp-build']){
  await cp(path.join(root,'node_modules',name),path.join(appResources,'node_modules',name),{recursive:true});
 }
+try{
+ await access(path.join(root,'node_modules','ws'));
+ await cp(path.join(root,'node_modules','ws'),path.join(appResources,'node_modules','ws'),{recursive:true});
+}catch{}
 await access(path.join(appResources,`node_modules/uiohook-napi/prebuilds/darwin-${arch}/uiohook-napi.node`));
 
 // Customize Info.plist display name
@@ -112,7 +116,9 @@ await writeFile(path.join(bundleDir,'使用说明-Mac.txt'),
 以上素材仅供个人非商业用途，与相关 AI 公司无官方关联。
 `,'utf8');
 
-const outZip=path.resolve(root,'../../outputs',`PetLink-Mac-${arch}.zip`);
+const outDir=process.env.PETLINK_OUT_DIR?path.resolve(process.env.PETLINK_OUT_DIR):path.resolve(root,'../../outputs');
+await mkdir(outDir,{recursive:true});
+const outZip=path.join(outDir,`PetLink-Mac-${arch}.zip`);
 await rm(outZip,{force:true});
 run('ditto',['-c','-k','--sequesterRsrc','--keepParent',bundleDir,outZip]);
 
@@ -123,7 +129,7 @@ await mkdir(dmgStage,{recursive:true});
 run('ditto',[appBundle,path.join(dmgStage,'PetLink.app')]);
 run('ln',['-s','/Applications',path.join(dmgStage,'Applications')]);
 await cp(path.join(bundleDir,'使用说明-Mac.txt'),path.join(dmgStage,'使用说明-Mac.txt'));
-const outDmg=path.resolve(root,'../../outputs',`PetLink-Mac-${arch}.dmg`);
+const outDmg=path.join(outDir,`PetLink-Mac-${arch}.dmg`);
 await rm(outDmg,{force:true});
 run('hdiutil',['create','-volname','PetLink','-srcfolder',dmgStage,'-ov','-format','UDZO',outDmg]);
 run('rm',['-rf',dmgStage]);

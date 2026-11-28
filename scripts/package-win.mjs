@@ -51,18 +51,19 @@ await mkdir(appResources,{recursive:true});
 pkg.main='apps/desktop/entry.mjs';
 await writeFile(path.join(appResources,'package.json'),JSON.stringify(pkg,null,2)+'\n');
 
+const copyFilter=source=>{const base=path.basename(source);return base!=='node_modules'&&base!=='.DS_Store'&&!base.startsWith('._');};
 for(const name of ['apps','packages','characters','assets','extensions']){
  await cp(path.join(root,name),path.join(appResources,name),{
   recursive:true,
-  filter:source=>path.basename(source)!=='node_modules'
+  filter:copyFilter
  });
 }
 
-await cp(path.join(root,'extensions/petlink-web-bridge'),path.join(folder,'PetLink-浏览器扩展'),{recursive:true});
+await cp(path.join(root,'extensions/petlink-web-bridge'),path.join(folder,'PetLink-浏览器扩展'),{recursive:true,filter:copyFilter});
 
 await mkdir(path.join(appResources,'node_modules'),{recursive:true});
 for(const name of ['ws','uiohook-napi','node-gyp-build']){
- await cp(path.join(root,'node_modules',name),path.join(appResources,'node_modules',name),{recursive:true});
+ await cp(path.join(root,'node_modules',name),path.join(appResources,'node_modules',name),{recursive:true,filter:copyFilter});
 }
 await access(path.join(appResources,'node_modules/uiohook-napi/prebuilds/win32-x64/uiohook-napi.node'));
 
